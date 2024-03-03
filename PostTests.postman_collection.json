@@ -1,0 +1,702 @@
+{
+	"info": {
+		"_postman_id": "bc645920-9a01-4085-b48d-f891e2f82e01",
+		"name": "PostTests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27627102"
+	},
+	"item": [
+		{
+			"name": "GetPostList",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// проверка статус кода snippet - Status code: Code is 200",
+							"",
+							"pm.test(\"Status code is 200 OK\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// проверка текста статус кода - snippet - Status code: Code name has string",
+							"pm.test(\"Status code is OK\", function () {",
+							"    pm.response.to.have.status(\"OK\");",
+							"});",
+							"",
+							"// проверка времени ответа snippet - Response time is less than 200ms",
+							"pm.test(\"Response time is less than 500ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"",
+							"",
+							"pm.test(\"Check body data is array\", function () {",
+							"    pm.expect(jsonData.data).to.be.an('array')",
+							"});",
+							"",
+							"pm.test(\"Check body data[0].id is string\", function () {",
+							"    pm.expect(jsonData.data[0].id).to.be.an('String')",
+							"});",
+							"",
+							"pm.test(\"Check body data[1].image is string\", function () {",
+							"    pm.expect(jsonData.data[1].image).to.be.an('String')",
+							"});",
+							"",
+							"pm.test(\"Check body data[2].likes is string\", function () {",
+							"    pm.expect(jsonData.data[2].likes).to.eql(0)",
+							"});",
+							"",
+							"pm.test(\"Check body data[3].tags is array\", function () {",
+							"    pm.expect(jsonData.data[3].tags).to.be.an('array')",
+							"});",
+							"",
+							"pm.test(\"Check body data[4].text is String\", function () {",
+							"    pm.expect(jsonData.data[4].text).to.be.an('String')",
+							"});",
+							"",
+							"pm.test(\"Check body data[5].publishDate is String\", function () {",
+							"    pm.expect(jsonData.data[5].publishDate).to.be.an('String')",
+							"});",
+							"",
+							"pm.test(\"Check body data[6].updatedDate is String\", function () {",
+							"    pm.expect(jsonData.data[6].updatedDate).to.be.an('String')",
+							"});",
+							"",
+							"pm.test(\"Check body data[7].owner is Object\", function () {",
+							"    pm.expect(jsonData.data[7].owner).to.be.an('Object')",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "app-id",
+						"value": "655219f74dcc6258bc8e2f79",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "{{host}}/post",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"post"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Post",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// проверка статус кода snippet - Status code: Code is 200",
+							"",
+							"pm.test(\"Status code is 200 OK\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// проверка текста статус кода - snippet - Status code: Code name has string",
+							"pm.test(\"Status code is OK\", function () {",
+							"    pm.response.to.have.status(\"OK\");",
+							"});",
+							"",
+							"// проверка времени ответа snippet - Response time is less than 200ms",
+							"pm.test(\"Response time is less than 700ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(700);",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.collectionVariables.set(\"postId\", jsonData.id); // создаем переменную переменную поcта",
+							"pm.environment.set(\"PostId\", jsonData.id); // создаём переменную в окружении ",
+							"",
+							"",
+							"pm.test(\"Check body id is string\", function () {",
+							"    pm.expect(jsonData.id).to.be.a('string');",
+							"});",
+							"",
+							"pm.test(\"Check body image\", function () {",
+							"    pm.expect(jsonData.image).to.eql(\"https://img.dummyapi.io/photo-1515376721779-7db6951da88d.jpg\");",
+							"});",
+							"",
+							"pm.test(\"Check body likes\", function () {",
+							"    pm.expect(jsonData.likes).to.eql(0);",
+							"});",
+							"",
+							"pm.test(\"Check body link is string\", function () {",
+							"    pm.expect(jsonData.link).to.be.a('String');",
+							"});",
+							"",
+							"pm.test(\"Check body tags is array\", function () {",
+							"    pm.expect(jsonData.tags).to.be.a('array');",
+							"});",
+							"",
+							"pm.test(\"Check body text\", function () {",
+							"    pm.expect(jsonData.text).to.eql(\"@adventure.yuki gra111ss short-cdfsvaqerqoated black dog sitting on snow\");",
+							"});",
+							"",
+							"pm.test(\"Check body owner is string\", function () {",
+							"    pm.expect(jsonData.owner).to.be.a('Object');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "app-id",
+						"value": "655219f74dcc6258bc8e2f79",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"image\": \"https://img.dummyapi.io/photo-1515376721779-7db6951da88d.jpg\",\n    \"likes\": 0,\n    \"link\": null,\n    \"tags\": [\n        \"dog\",\n        \"pet\",\n        \"canine\"\n    ],\n    \"text\": \"@adventure.yuki gra111ss short-cdfsvaqerqoated black dog sitting on snow\",\n    \n    \"owner\": \"{{UserId}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/post/create",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"post",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetPostListByUser",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200 OK\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Status code is OK\", function () {",
+							"    pm.response.to.have.status(\"OK\");",
+							"});",
+							"",
+							"// проверка времени ответа snippet - Response time is less than 700ms",
+							"pm.test(\"Response time is less than 700ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(700);",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Check body data is array\", function () {",
+							"    pm.expect(jsonData.data).to.be.a('array');",
+							"});",
+							"",
+							"pm.test(\"Check body id\", function () {",
+							"    pm.expect(jsonData.data[0].id).to.eql(pm.environment.get(\"PostId\"));",
+							"});",
+							"",
+							"pm.test(\"Check body image\", function () {",
+							"    pm.expect(jsonData.data[0].image).to.eql(\"https://img.dummyapi.io/photo-1515376721779-7db6951da88d.jpg\");",
+							"});",
+							"",
+							"pm.test(\"Check body likes\", function () {",
+							"    pm.expect(jsonData.data[0].likes).to.eql(0);",
+							"});",
+							"",
+							"pm.test(\"Check body tags is array\", function () {",
+							"    pm.expect(jsonData.data[0].tags).to.be.a('Array');",
+							"});",
+							"",
+							"pm.test(\"Check body text a string\", function () {",
+							"    pm.expect(jsonData.data[0].text).to.be.a('String');",
+							"});",
+							"",
+							"pm.test(\"Check body owner is Object\", function () {",
+							"    pm.expect(jsonData.data[0].owner).to.be.a('Object');",
+							"});",
+							"",
+							"pm.test(\"Check body owner id is string\", function () {",
+							"    pm.expect(jsonData.data[0].owner.id).to.eql(pm.environment.get(\"UserId\"));",
+							"});",
+							"",
+							"pm.test(\"Check body owner title is string\", function () {",
+							"    pm.expect(jsonData.data[0].owner.title).to.eql('mr');",
+							"});",
+							"",
+							"pm.test(\"Check body owner firstName is string\", function () {",
+							"    pm.expect(jsonData.data[0].owner.firstName).to.eql('Ив');",
+							"});",
+							"",
+							"pm.test(\"Check body owner lastName is string\", function () {",
+							"    pm.expect(jsonData.data[0].owner.lastName).to.eql('Он');",
+							"});",
+							"",
+							"pm.test(\"Check body owner picture is string\", function () {",
+							"    pm.expect(jsonData.data[0].owner.picture).to.eql(\"https://randomuser.me/api/portraits/med/men/23.jpg\");",
+							"});",
+							"",
+							"pm.test(\"Check body data[3] is undefined\", function () {",
+							"    pm.expect(jsonData.data[3]).to.be.an('undefined')",
+							"});",
+							"",
+							"pm.test(\"Check limit is 20\", function () {",
+							"    pm.expect(jsonData.limit).to.eql(20);",
+							"});",
+							"",
+							"pm.test(\"Check page is 0\", function () {",
+							"    pm.expect(jsonData.page).to.eql(0);",
+							"});",
+							"",
+							"pm.test(\"Check body total is number\", function () {",
+							"    pm.expect(jsonData.total).to.be.a('number')",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/user/{{UserId}}/post/",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"user",
+						"{{UserId}}",
+						"post",
+						""
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetListByTag (animal)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200 OK\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Status code is OK\", function () {",
+							"    pm.response.to.have.status(\"OK\");",
+							"});",
+							"",
+							"// проверка времени ответа snippet - Response time is less than 700ms",
+							"pm.test(\"Response time is less than 700ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(700);",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Check body data is array\", function () {",
+							"    pm.expect(jsonData.data).to.be.a('array');",
+							"});",
+							"",
+							"pm.test(\"Check body id\", function () {",
+							"    pm.expect(jsonData.data[0].id).to.be.a(\"String\");",
+							"});",
+							"",
+							"pm.test(\"Check body image\", function () {",
+							"    pm.expect(jsonData.data[1].image).to.be.a(\"String\");",
+							"});",
+							"",
+							"pm.test(\"Check body likes\", function () {",
+							"    pm.expect(jsonData.data[2].likes).to.be.a(\"number\");",
+							"});",
+							"",
+							"pm.test(\"Check body tags is array\", function () {",
+							"    pm.expect(jsonData.data[3].tags).to.be.a('array');",
+							"});",
+							"",
+							"pm.test(\"Check body tags is array\", function () {",
+							"    pm.expect(jsonData.data[3].tags).to.include(pm.collectionVariables.get(\"tag\"));",
+							"});",
+							"",
+							"pm.test(\"Check body text a string\", function () {",
+							"    pm.expect(jsonData.data[4].text).to.be.a('String');",
+							"});",
+							"",
+							"pm.test(\"Check body publishDate is String\", function () {",
+							"    pm.expect(jsonData.data[5].publishDate).to.be.a('String');",
+							"});",
+							"",
+							"pm.test(\"Check body owner is 'Object'\", function () {",
+							"    pm.expect(jsonData.data[6].owner).to.be.a('Object');",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/tag/{{tag}}/post",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"tag",
+						"{{tag}}",
+						"post"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetTag",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200 OK\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is OK\", function () {\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							"\r",
+							"// проверка времени ответа snippet - Response time is less than 700ms\r",
+							"pm.test(\"Response time is less than 700ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(700);\r",
+							"});\r",
+							"\r",
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Check body data is array\", function () {\r",
+							"    pm.expect(jsonData.data).to.be.a('array');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check elem of data is string\", function () {\r",
+							"    pm.expect(jsonData.data[10]).to.be.a(\"String\");\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/tag",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"tag"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetPostById",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200 OK\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Status code is OK\", function () {",
+							"    pm.response.to.have.status(\"OK\");",
+							"});",
+							"",
+							"// проверка времени ответа snippet - Response time is less than 700ms",
+							"pm.test(\"Response time is less than 700ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(700);",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Check body id\", function () {",
+							"    pm.expect(jsonData.id).to.eql(pm.environment.get(\"PostId\"));",
+							"});",
+							"",
+							"pm.test(\"Check body image\", function () {",
+							"    pm.expect(jsonData.image).to.eql(\"https://img.dummyapi.io/photo-1515376721779-7db6951da88d.jpg\");",
+							"});",
+							"",
+							"pm.test(\"Check body likes\", function () {",
+							"    pm.expect(jsonData.likes).to.eql(0);",
+							"});",
+							"",
+							"pm.test(\"Check body tags is array\", function () {",
+							"    pm.expect(jsonData.tags).to.be.a('array');",
+							"});",
+							"",
+							"pm.test(\"Check body text a string\", function () {",
+							"    pm.expect(jsonData.text).to.be.a('String');",
+							"});",
+							"",
+							"pm.test(\"Check body owner is Object\", function () {",
+							"    pm.expect(jsonData.owner).to.be.a('Object');",
+							"});",
+							"",
+							"pm.test(\"Check body owner id is Object\", function () {",
+							"    pm.expect(jsonData.owner.id).to.eql(pm.environment.get(\"UserId\"));",
+							"});",
+							"",
+							"pm.test(\"Check body owner title is string\", function () {",
+							"    pm.expect(jsonData.owner.title).to.eql('mr');",
+							"});",
+							"",
+							"pm.test(\"Check body owner firstName is string\", function () {",
+							"    pm.expect(jsonData.owner.firstName).to.eql('Ив');",
+							"});",
+							"",
+							"pm.test(\"Check body owner lastName is string\", function () {",
+							"    pm.expect(jsonData.owner.lastName).to.eql('Он');",
+							"});",
+							"",
+							"pm.test(\"Check body owner picture is string\", function () {",
+							"    pm.expect(jsonData.owner.picture).to.eql(\"https://randomuser.me/api/portraits/med/men/23.jpg\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/post/{{PostId}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"post",
+						"{{PostId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdatePost",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 500ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);",
+							"});",
+							"",
+							"pm.test(\"Status code name is OK\", function () {",
+							"    pm.response.to.have.status(\"OK\");",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"pm.collectionVariables.set(\"PostId\", jsonData.id);",
+							"",
+							"pm.test(\"Check body id is string\", function () {",
+							"    pm.expect(jsonData.id).to.be.a('string');",
+							"});",
+							"",
+							"pm.test(\"Check body image\", function () {",
+							"    pm.expect(jsonData.image).to.eql(\"https://img.dummyapi.io/photo-1515376721779-7db6951da88d.jpg\");",
+							"});",
+							"",
+							"pm.test(\"Check body likes\", function () {",
+							"    pm.expect(jsonData.likes).to.eql(0);",
+							"});",
+							"",
+							"pm.test(\"Check body link is string\", function () {",
+							"    pm.expect(jsonData.link).to.eql(\"тут должна быть URL\");",
+							"});",
+							"",
+							"pm.test(\"Check body tags is array\", function () {",
+							"    pm.expect(jsonData.tags).to.be.a('array');",
+							"});",
+							"",
+							"pm.test(\"Check body text\", function () {",
+							"    pm.expect(jsonData.text).to.eql(\"text\");",
+							"});",
+							"",
+							"pm.test(\"Check body owner is string\", function () {",
+							"    pm.expect(jsonData.owner).to.be.a('Object');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"link\": \"тут должна быть URL\",\n    \"text\": \"text\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/post/{{PostId}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"post",
+						"{{PostId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeletePost",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 500ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);",
+							"});",
+							"",
+							"pm.test(\"Status code name is OK\", function () {",
+							"    pm.response.to.have.status(\"OK\");",
+							"});",
+							"",
+							"pm.test(\"Your test name\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.id).to.eql(pm.environment.get(\"PostId\"));",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/post/{{PostId}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"post",
+						"{{PostId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "value",
+				"value": "{{app-id}}",
+				"type": "string"
+			},
+			{
+				"key": "key",
+				"value": "app-id",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "userId",
+			"value": "65523c712b9fad5936c6b071"
+		},
+		{
+			"key": "tag",
+			"value": "animal",
+			"type": "string"
+		},
+		{
+			"key": "postId",
+			"value": ""
+		},
+		{
+			"key": "PostId",
+			"value": ""
+		}
+	]
+}

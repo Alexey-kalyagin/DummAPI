@@ -1,0 +1,3882 @@
+{
+	"info": {
+		"_postman_id": "5854d883-db4b-4f8c-9fa2-fc9112773dfe",
+		"name": "Comment test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27627102"
+	},
+	"item": [
+		{
+			"name": "GET Comment",
+			"item": [
+				{
+					"name": "Get CommentList",
+					"item": [
+						{
+							"name": "GetCommentList",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200 OK\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Status code is OK\", function () {",
+											"    pm.response.to.have.status(\"OK\");",
+											"});",
+											"",
+											"pm.test(\"Response time is less than 500ms\", function () {",
+											"    pm.expect(pm.response.responseTime).to.be.below(500);",
+											"});",
+											"",
+											"var jsonData = pm.response.json();",
+											"",
+											"pm.collectionVariables.set(\"userId\", jsonData.id); // создаем переменную пользователя",
+											"",
+											"//pm.collectionVariables.set(\"timeStep\", replaceIn('{{$isoTimestamp}}'));",
+											"",
+											"pm.test(\"Check body data is Array\", function () {",
+											"    pm.expect(jsonData.data).to.be.an(\"Array\");",
+											"});",
+											"",
+											"pm.test(\"Check body id is String\", function () {",
+											"    pm.expect(jsonData.data[0].id).to.be.an(\"String\");",
+											"});",
+											"",
+											"pm.test(\"Check body message is String\", function () {",
+											"    pm.expect(jsonData.data[1].message).to.be.an(\"String\");",
+											"});",
+											"",
+											"pm.test(\"Check body (2 < message < 500)\", function () {",
+											"    pm.expect(jsonData.data[1].message).to.have.lengthOf.within(2, 500);",
+											"});",
+											"",
+											"pm.test(\"Check body owner is Object\", function () {",
+											"    pm.expect(jsonData.data[2].owner).to.be.an('Object');",
+											"});",
+											"",
+											"",
+											"pm.test(\"Check body owner userId is String\", function () {",
+											"    pm.expect(jsonData.data[2].owner.id).to.be.an('String');",
+											"});",
+											"",
+											"pm.test(\"Check body owner userTitle is valid gender - mr, ms, miss...\", function () {",
+											"    var title = {gender:['mr', 'ms', 'mrs', 'miss', 'dr', null]};",
+											"    pm.expect(title.gender).to.deep.include(jsonData.data[2].owner.title);",
+											"});",
+											"",
+											"pm.test(\"Check body owner userFirstName is String\", function () {",
+											"    pm.expect(jsonData.data[2].owner.firstName).to.be.an('String');",
+											"});",
+											"",
+											"pm.test(\"Check body owner userFirstName (2 < firstName < 50)\", function () {",
+											"    pm.expect(jsonData.data[2].owner.firstName).to.have.lengthOf.within(2, 50);",
+											"});",
+											"",
+											"pm.test(\"Check body owner userLastName is String\", function () {",
+											"    pm.expect(jsonData.data[2].owner.lastName).to.be.an('String');",
+											"});",
+											"",
+											"pm.test(\"Check body owner userLastName (2 < lastName < 50)\", function () {",
+											"    pm.expect(jsonData.data[2].owner.lastName).to.have.lengthOf.within(2, 50);",
+											"});",
+											"",
+											"pm.test(\"Check body owner userPicture is String (URL)\", function () {",
+											"    pm.expect(jsonData.data[2].owner.picture).to.include('http');",
+											"});",
+											"",
+											"pm.test(\"Check body post is String\", function () {",
+											"    pm.expect(jsonData.data[3].post).to.be.an(\"String\");",
+											"});",
+											"",
+											"pm.test(\"Check body publishDate is String\", function () {",
+											"    pm.expect(jsonData.data[4].publishDate).to.be.an(\"String\");",
+											"});",
+											"",
+											"// pm.collectionVariables.set(\"timeStamp\", pm.variables.replaceIn('{{$isoTimestamp}}'));",
+											"// pm.test(\"Check body publishDate is date\", function () {",
+											"//         pm.expect(pm.collectionVariables.get('timeStamp')).to.be.above(jsonData.data[0].publishDate);",
+											"// });",
+											"",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/comment",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"comment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "NoVal GetCommentList",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 404\", function () {",
+											"    pm.response.to.have.status(404);",
+											"});",
+											"",
+											"pm.test(\"Status code is Not found\", function () {",
+											"    pm.response.to.have.status(\"Not Found\");",
+											"});",
+											"",
+											"pm.test(\"Response time is less than 500ms\", function () {",
+											"    pm.expect(pm.response.responseTime).to.be.below(500);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/comment",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"comment"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Params",
+					"item": [
+						{
+							"name": "Page",
+							"item": [
+								{
+									"name": "GetPostList (page = 0)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200 OK\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Status code is OK\", function () {\r",
+													"    pm.response.to.have.status(\"OK\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response time is less than 500ms\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+													"});\r",
+													"\r",
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.collectionVariables.set(\"userId\", jsonData.id); // создаем переменную пользователя\r",
+													"\r",
+													"//pm.collectionVariables.set(\"timeStep\", replaceIn('{{$isoTimestamp}}'));\r",
+													"\r",
+													"pm.test(\"Check body data is Array\", function () {\r",
+													"    pm.expect(jsonData.data).to.be.an(\"Array\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body id is String\", function () {\r",
+													"    pm.expect(jsonData.data[0].id).to.be.an(\"String\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body message is String\", function () {\r",
+													"    pm.expect(jsonData.data[1].message).to.be.an(\"String\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body (2 < message < 500)\", function () {\r",
+													"    pm.expect(jsonData.data[1].message).to.have.lengthOf.within(2, 500);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body owner is Object\", function () {\r",
+													"    pm.expect(jsonData.data[2].owner).to.be.an('Object');\r",
+													"});\r",
+													"\r",
+													"\r",
+													"pm.test(\"Check body owner userId is String\", function () {\r",
+													"    pm.expect(jsonData.data[2].owner.id).to.be.an('String');\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body owner userTitle is valid gender - mr, ms, miss...\", function () {\r",
+													"    pm.expect(jsonData.data[2].owner.title).to.equal('mr', 'ms', 'mrs', 'miss', 'dr', null);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body owner userFirstName is String\", function () {\r",
+													"    pm.expect(jsonData.data[2].owner.firstName).to.be.an('String');\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body owner userFirstName (2 < firstName < 50)\", function () {\r",
+													"    pm.expect(jsonData.data[2].owner.firstName).to.have.lengthOf.within(2, 50);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body owner userLastName is String\", function () {\r",
+													"    pm.expect(jsonData.data[2].owner.lastName).to.be.an('String');\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body owner userLastName (2 < lastName < 50)\", function () {\r",
+													"    pm.expect(jsonData.data[2].owner.lastName).to.have.lengthOf.within(2, 50);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body owner userPicture is String (URL)\", function () {\r",
+													"    pm.expect(jsonData.data[2].owner.picture).to.include('http');\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body post is String\", function () {\r",
+													"    pm.expect(jsonData.data[3].post).to.be.an(\"String\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body publishDate is String\", function () {\r",
+													"    pm.expect(jsonData.data[4].publishDate).to.be.an(\"String\");\r",
+													"});\r",
+													"\r",
+													"// pm.collectionVariables.set(\"timeStamp\", pm.variables.replaceIn('{{$isoTimestamp}}'));\r",
+													"// pm.test(\"Check body publishDate is date\", function () {\r",
+													"//         pm.expect(pm.collectionVariables.get('timeStamp')).to.be.above(jsonData.data[4].publishDate);\r",
+													"// });\r",
+													"\r",
+													"pm.test(\"Check limit is 20\", function () {\r",
+													"    pm.expect(jsonData.limit).to.eql(20);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check page is 0\", function () {\r",
+													"    pm.expect(jsonData.page).to.eql(0);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body total is number\", function () {\r",
+													"    pm.expect(jsonData.total).to.be.a('number')\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body total is 997\", function () {\r",
+													"    pm.expect(jsonData.total).to.eql(997);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{host}}/comment?page=0",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"comment"
+											],
+											"query": [
+												{
+													"key": "page",
+													"value": "0"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "GetPostList (page = 1)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200 OK\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Status code is OK\", function () {\r",
+													"    pm.response.to.have.status(\"OK\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response time is less than 500ms\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+													"});\r",
+													"\r",
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.collectionVariables.set(\"userId\", jsonData.id); // создаем переменную пользователя\r",
+													"\r",
+													"//pm.collectionVariables.set(\"timeStep\", replaceIn('{{$isoTimestamp}}'));\r",
+													"\r",
+													"pm.test(\"Check body data is Array\", function () {\r",
+													"    pm.expect(jsonData.data).to.be.an(\"Array\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body id is String\", function () {\r",
+													"    pm.expect(jsonData.data[0].id).to.be.an(\"String\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body message is String\", function () {\r",
+													"    pm.expect(jsonData.data[1].message).to.be.an(\"String\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body (2 < message < 500)\", function () {\r",
+													"    pm.expect(jsonData.data[1].message).to.have.lengthOf.within(2, 500);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body owner is Object\", function () {\r",
+													"    pm.expect(jsonData.data[2].owner).to.be.an('Object');\r",
+													"});\r",
+													"\r",
+													"\r",
+													"pm.test(\"Check body owner userId is String\", function () {\r",
+													"    pm.expect(jsonData.data[2].owner.id).to.be.an('String');\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body owner userTitle is valid gender - mr, ms, miss...\", function () {\r",
+													"    var title = {gender:['mr', 'ms', 'mrs', 'miss', 'dr', null]};\r",
+													"    pm.expect(title.gender).to.deep.include(jsonData.data[2].owner.title);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body owner userFirstName is String\", function () {\r",
+													"    pm.expect(jsonData.data[2].owner.firstName).to.be.an('String');\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body owner userFirstName (2 < firstName < 50)\", function () {\r",
+													"    pm.expect(jsonData.data[2].owner.firstName).to.have.lengthOf.within(2, 50);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body owner userLastName is String\", function () {\r",
+													"    pm.expect(jsonData.data[2].owner.lastName).to.be.an('String');\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body owner userLastName (2 < lastName < 50)\", function () {\r",
+													"    pm.expect(jsonData.data[2].owner.lastName).to.have.lengthOf.within(2, 50);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body owner userPicture is String (URL)\", function () {\r",
+													"    pm.expect(jsonData.data[2].owner.picture).to.include('http');\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body post is String\", function () {\r",
+													"    pm.expect(jsonData.data[3].post).to.be.an(\"String\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body publishDate is String\", function () {\r",
+													"    pm.expect(jsonData.data[4].publishDate).to.be.an(\"String\");\r",
+													"});\r",
+													"\r",
+													"// pm.collectionVariables.set(\"timeStamp\", pm.variables.replaceIn('{{$isoTimestamp}}'));\r",
+													"// pm.test(\"Check body publishDate is date\", function () {\r",
+													"//         pm.expect(pm.collectionVariables.get('timeStamp')).to.be.above(jsonData.data[4].publishDate);\r",
+													"// });\r",
+													"\r",
+													"pm.test(\"Check limit is 20\", function () {\r",
+													"    pm.expect(jsonData.limit).to.eql(20);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check page is 1\", function () {\r",
+													"    pm.expect(jsonData.page).to.eql(1);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body total is number\", function () {\r",
+													"    pm.expect(jsonData.total).to.be.a('number')\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body total is 997\", function () {\r",
+													"    pm.expect(jsonData.total).to.eql(997);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{host}}/comment?page=1",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"comment"
+											],
+											"query": [
+												{
+													"key": "page",
+													"value": "1"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "GetPostList (page = 999)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200 OK\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Status code is OK\", function () {\r",
+													"    pm.response.to.have.status(\"OK\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response time is less than 500ms\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+													"});\r",
+													"\r",
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.collectionVariables.set(\"userId\", jsonData.id); // создаем переменную пользователя\r",
+													"\r",
+													"//pm.collectionVariables.set(\"timeStep\", replaceIn('{{$isoTimestamp}}'));\r",
+													"\r",
+													"pm.test(\"Check body data is Array\", function () {\r",
+													"    pm.expect(jsonData.data).to.be.an(\"Array\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body id is String\", function () {\r",
+													"    pm.expect(jsonData.data[0].id).to.be.an(\"String\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body message is String\", function () {\r",
+													"    pm.expect(jsonData.data[1].message).to.be.an(\"String\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body (2 < message < 500)\", function () {\r",
+													"    pm.expect(jsonData.data[1].message).to.have.lengthOf.within(2, 500);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body owner is Object\", function () {\r",
+													"    pm.expect(jsonData.data[2].owner).to.be.an('Object');\r",
+													"});\r",
+													"\r",
+													"\r",
+													"pm.test(\"Check body owner userId is String\", function () {\r",
+													"    pm.expect(jsonData.data[2].owner.id).to.be.an('String');\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body owner userTitle is valid gender - mr, ms, miss...\", function () {\r",
+													"    var title = {gender:['mr', 'ms', 'mrs', 'miss', 'dr', null]};\r",
+													"    pm.expect(title.gender).to.deep.include(jsonData.data[2].owner.title);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body owner userFirstName is String\", function () {\r",
+													"    pm.expect(jsonData.data[2].owner.firstName).to.be.an('String');\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body owner userFirstName (2 < firstName < 50)\", function () {\r",
+													"    pm.expect(jsonData.data[2].owner.firstName).to.have.lengthOf.within(2, 50);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body owner userLastName is String\", function () {\r",
+													"    pm.expect(jsonData.data[2].owner.lastName).to.be.an('String');\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body owner userLastName (2 < lastName < 50)\", function () {\r",
+													"    pm.expect(jsonData.data[2].owner.lastName).to.have.lengthOf.within(2, 50);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body owner userPicture is String (URL)\", function () {\r",
+													"    pm.expect(jsonData.data[2].owner.picture).to.include('http');\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body post is String\", function () {\r",
+													"    pm.expect(jsonData.data[3].post).to.be.an(\"String\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body publishDate is String\", function () {\r",
+													"    pm.expect(jsonData.data[4].publishDate).to.be.an(\"String\");\r",
+													"});\r",
+													"\r",
+													"// pm.collectionVariables.set(\"timeStamp\", pm.variables.replaceIn('{{$isoTimestamp}}'));\r",
+													"// pm.test(\"Check body publishDate is date\", function () {\r",
+													"//         pm.expect(pm.collectionVariables.get('timeStamp')).to.be.above(jsonData.data[4].publishDate);\r",
+													"// });\r",
+													"\r",
+													"pm.test(\"Check limit is 20\", function () {\r",
+													"    pm.expect(jsonData.limit).to.eql(20);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check page is 999\", function () {\r",
+													"    pm.expect(jsonData.page).to.eql(999);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body total is number\", function () {\r",
+													"    pm.expect(jsonData.total).to.be.a('number')\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body total is 997\", function () {\r",
+													"    pm.expect(jsonData.total).to.eql(997);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{host}}/comment?page=999",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"comment"
+											],
+											"query": [
+												{
+													"key": "page",
+													"value": "999"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "GetPostList (page = 1000) невалид",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 404\", function () {\r",
+													"    pm.response.to.have.status(404);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Status code is Not found\", function () {\r",
+													"    pm.response.to.have.status(\"Not Found\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response time is less than 500ms\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{host}}/comment?page=1000",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"comment"
+											],
+											"query": [
+												{
+													"key": "page",
+													"value": "1000"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "GetPostList (page = Text) невалид",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 404\", function () {\r",
+													"    pm.response.to.have.status(404);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Status code is Not found\", function () {\r",
+													"    pm.response.to.have.status(\"Not Found\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response time is less than 500ms\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{host}}/comment?page=Text",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"comment"
+											],
+											"query": [
+												{
+													"key": "page",
+													"value": "Text"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "GetPostList (page = ) без параметров",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200 OK\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Status code is OK\", function () {\r",
+													"    pm.response.to.have.status(\"OK\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response time is less than 500ms\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+													"});\r",
+													"\r",
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.collectionVariables.set(\"userId\", jsonData.id); // создаем переменную пользователя\r",
+													"\r",
+													"//pm.collectionVariables.set(\"timeStep\", replaceIn('{{$isoTimestamp}}'));\r",
+													"\r",
+													"pm.test(\"Check body data is Array\", function () {\r",
+													"    pm.expect(jsonData.data).to.be.an(\"Array\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body id is String\", function () {\r",
+													"    pm.expect(jsonData.data[0].id).to.be.an(\"String\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body message is String\", function () {\r",
+													"    pm.expect(jsonData.data[1].message).to.be.an(\"String\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body (2 < message < 500)\", function () {\r",
+													"    pm.expect(jsonData.data[1].message).to.have.lengthOf.within(2, 500);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body owner is Object\", function () {\r",
+													"    pm.expect(jsonData.data[2].owner).to.be.an('Object');\r",
+													"});\r",
+													"\r",
+													"\r",
+													"pm.test(\"Check body owner userId is String\", function () {\r",
+													"    pm.expect(jsonData.data[2].owner.id).to.be.an('String');\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body owner userTitle is valid gender - mr, ms, miss...\", function () {\r",
+													"    pm.expect(jsonData.data[2].owner.title).to.equal('mr', 'ms', 'mrs', 'miss', 'dr', null);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body owner userFirstName is String\", function () {\r",
+													"    pm.expect(jsonData.data[2].owner.firstName).to.be.an('String');\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body owner userFirstName (2 < firstName < 50)\", function () {\r",
+													"    pm.expect(jsonData.data[2].owner.firstName).to.have.lengthOf.within(2, 50);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body owner userLastName is String\", function () {\r",
+													"    pm.expect(jsonData.data[2].owner.lastName).to.be.an('String');\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body owner userLastName (2 < lastName < 50)\", function () {\r",
+													"    pm.expect(jsonData.data[2].owner.lastName).to.have.lengthOf.within(2, 50);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body owner userPicture is String (URL)\", function () {\r",
+													"    pm.expect(jsonData.data[2].owner.picture).to.include('http');\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body post is String\", function () {\r",
+													"    pm.expect(jsonData.data[3].post).to.be.an(\"String\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body publishDate is String\", function () {\r",
+													"    pm.expect(jsonData.data[4].publishDate).to.be.an(\"String\");\r",
+													"});\r",
+													"\r",
+													"// pm.collectionVariables.set(\"timeStamp\", pm.variables.replaceIn('{{$isoTimestamp}}'));\r",
+													"// pm.test(\"Check body publishDate is date\", function () {\r",
+													"//         pm.expect(pm.collectionVariables.get('timeStamp')).to.be.above(jsonData.data[0].publishDate);\r",
+													"// });\r",
+													"\r",
+													"pm.test(\"Check limit is 20\", function () {\r",
+													"    pm.expect(jsonData.limit).to.eql(20);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check page is NULL\", function () {\r",
+													"    pm.expect(jsonData.page).to.eql(null);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body total is number\", function () {\r",
+													"    pm.expect(jsonData.total).to.be.a('number')\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body total is 997\", function () {\r",
+													"    pm.expect(jsonData.total).to.eql(997);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{host}}/comment?page=",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"comment"
+											],
+											"query": [
+												{
+													"key": "page",
+													"value": ""
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Limit",
+							"item": [
+								{
+									"name": "GetPostList (limit = ) без параметров",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200 OK\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Status code is OK\", function () {",
+													"    pm.response.to.have.status(\"OK\");",
+													"});",
+													"",
+													"pm.test(\"Response time is less than 500ms\", function () {",
+													"    pm.expect(pm.response.responseTime).to.be.below(500);",
+													"});",
+													"",
+													"var jsonData = pm.response.json();",
+													"",
+													"pm.collectionVariables.set(\"userId\", jsonData.id); // создаем переменную пользователя",
+													"",
+													"//pm.collectionVariables.set(\"timeStep\", replaceIn('{{$isoTimestamp}}'));",
+													"",
+													"pm.test(\"Check body data is Array\", function () {",
+													"    pm.expect(jsonData.data).to.be.an(\"Array\");",
+													"});",
+													"",
+													"pm.test(\"Check body id is String\", function () {",
+													"    pm.expect(jsonData.data[0].id).to.be.an(\"String\");",
+													"});",
+													"",
+													"pm.test(\"Check body message is String\", function () {",
+													"    pm.expect(jsonData.data[1].message).to.be.an(\"String\");",
+													"});",
+													"",
+													"pm.test(\"Check body (2 < message < 500)\", function () {",
+													"    pm.expect(jsonData.data[1].message).to.have.lengthOf.within(2, 500);",
+													"});",
+													"",
+													"pm.test(\"Check body owner is Object\", function () {",
+													"    pm.expect(jsonData.data[2].owner).to.be.an('Object');",
+													"});",
+													"",
+													"",
+													"pm.test(\"Check body owner userId is String\", function () {",
+													"    pm.expect(jsonData.data[2].owner.id).to.be.an('String');",
+													"});",
+													"",
+													"pm.test(\"Check body owner userTitle is valid gender - mr, ms, miss...\", function () {",
+													"    pm.expect(jsonData.data[2].owner.title).to.equal('mr', 'ms', 'mrs', 'miss', 'dr', null);",
+													"});",
+													"",
+													"pm.test(\"Check body owner userFirstName is String\", function () {",
+													"    pm.expect(jsonData.data[2].owner.firstName).to.be.an('String');",
+													"});",
+													"",
+													"pm.test(\"Check body owner userFirstName (2 < firstName < 50)\", function () {",
+													"    pm.expect(jsonData.data[2].owner.firstName).to.have.lengthOf.within(2, 50);",
+													"});",
+													"",
+													"pm.test(\"Check body owner userLastName is String\", function () {",
+													"    pm.expect(jsonData.data[2].owner.lastName).to.be.an('String');",
+													"});",
+													"",
+													"pm.test(\"Check body owner userLastName (2 < lastName < 50)\", function () {",
+													"    pm.expect(jsonData.data[2].owner.lastName).to.have.lengthOf.within(2, 50);",
+													"});",
+													"",
+													"pm.test(\"Check body owner userPicture is String (URL)\", function () {",
+													"    pm.expect(jsonData.data[2].owner.picture).to.include('http');",
+													"});",
+													"",
+													"pm.test(\"Check body post is String\", function () {",
+													"    pm.expect(jsonData.data[3].post).to.be.an(\"String\");",
+													"});",
+													"",
+													"pm.test(\"Check body publishDate is String\", function () {",
+													"    pm.expect(jsonData.data[4].publishDate).to.be.an(\"String\");",
+													"});",
+													"",
+													"// pm.collectionVariables.set(\"timeStamp\", pm.variables.replaceIn('{{$isoTimestamp}}'));",
+													"// pm.test(\"Check body publishDate is date\", function () {",
+													"//         pm.expect(pm.collectionVariables.get('timeStamp')).to.be.above(jsonData.data[0].publishDate);",
+													"// });",
+													"",
+													"pm.test(\"Check limit is Null\", function () {",
+													"    pm.expect(jsonData.limit).to.eql(null);",
+													"});",
+													"",
+													"pm.test(\"Check page is 0\", function () {",
+													"    pm.expect(jsonData.page).to.eql(0);",
+													"});",
+													"",
+													"pm.test(\"Check body total is number\", function () {",
+													"    pm.expect(jsonData.total).to.be.a('number')",
+													"});",
+													"",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{host}}/comment?limit",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"comment"
+											],
+											"query": [
+												{
+													"key": "page",
+													"value": "",
+													"disabled": true
+												},
+												{
+													"key": "limit",
+													"value": null
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "GetPostList (limit = 4) невалид",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 404\", function () {",
+													"    pm.response.to.have.status(404);",
+													"});",
+													"",
+													"pm.test(\"Status code is Not found\", function () {",
+													"    pm.response.to.have.status(\"Not Found\");",
+													"});",
+													"",
+													"pm.test(\"Response time is less than 500ms\", function () {",
+													"    pm.expect(pm.response.responseTime).to.be.below(500);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{host}}/comment?limit=4",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"comment"
+											],
+											"query": [
+												{
+													"key": "page",
+													"value": "",
+													"disabled": true
+												},
+												{
+													"key": "limit",
+													"value": "4"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "GetPostList (limit = 5)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200 OK\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Status code is OK\", function () {",
+													"    pm.response.to.have.status(\"OK\");",
+													"});",
+													"",
+													"pm.test(\"Response time is less than 500ms\", function () {",
+													"    pm.expect(pm.response.responseTime).to.be.below(500);",
+													"});",
+													"",
+													"var jsonData = pm.response.json();",
+													"",
+													"pm.collectionVariables.set(\"userId\", jsonData.id); // создаем переменную пользователя",
+													"",
+													"//pm.collectionVariables.set(\"timeStep\", replaceIn('{{$isoTimestamp}}'));",
+													"",
+													"pm.test(\"Check body data is Array\", function () {",
+													"    pm.expect(jsonData.data).to.be.an(\"Array\");",
+													"});",
+													"",
+													"pm.test(\"Check body id is String\", function () {",
+													"    pm.expect(jsonData.data[0].id).to.be.an(\"String\");",
+													"});",
+													"",
+													"pm.test(\"Check body message is String\", function () {",
+													"    pm.expect(jsonData.data[1].message).to.be.an(\"String\");",
+													"});",
+													"",
+													"pm.test(\"Check body (2 < message < 500)\", function () {",
+													"    pm.expect(jsonData.data[1].message).to.have.lengthOf.within(2, 500);",
+													"});",
+													"",
+													"pm.test(\"Check body owner is Object\", function () {",
+													"    pm.expect(jsonData.data[2].owner).to.be.an('Object');",
+													"});",
+													"",
+													"",
+													"pm.test(\"Check body owner userId is String\", function () {",
+													"    pm.expect(jsonData.data[2].owner.id).to.be.an('String');",
+													"});",
+													"",
+													"pm.test(\"Check body owner userTitle is valid gender - mr, ms, miss...\", function () {",
+													"    pm.expect(jsonData.data[2].owner.title).to.equal('mr', 'ms', 'mrs', 'miss', 'dr', null);",
+													"});",
+													"",
+													"pm.test(\"Check body owner userFirstName is String\", function () {",
+													"    pm.expect(jsonData.data[2].owner.firstName).to.be.an('String');",
+													"});",
+													"",
+													"pm.test(\"Check body owner userFirstName (2 < firstName < 50)\", function () {",
+													"    pm.expect(jsonData.data[2].owner.firstName).to.have.lengthOf.within(2, 50);",
+													"});",
+													"",
+													"pm.test(\"Check body owner userLastName is String\", function () {",
+													"    pm.expect(jsonData.data[2].owner.lastName).to.be.an('String');",
+													"});",
+													"",
+													"pm.test(\"Check body owner userLastName (2 < lastName < 50)\", function () {",
+													"    pm.expect(jsonData.data[2].owner.lastName).to.have.lengthOf.within(2, 50);",
+													"});",
+													"",
+													"pm.test(\"Check body owner userPicture is String (URL)\", function () {",
+													"    pm.expect(jsonData.data[2].owner.picture).to.include('http');",
+													"});",
+													"",
+													"pm.test(\"Check body post is String\", function () {",
+													"    pm.expect(jsonData.data[3].post).to.be.an(\"String\");",
+													"});",
+													"",
+													"pm.test(\"Check body publishDate is String\", function () {",
+													"    pm.expect(jsonData.data[4].publishDate).to.be.an(\"String\");",
+													"});",
+													"",
+													"// сравниваем дату с календарём",
+													"// pm.collectionVariables.set(\"timeStamp\", pm.variables.replaceIn('{{$isoTimestamp}}'));",
+													"// pm.test(\"Check body publishDate is date\", function () {",
+													"//         pm.expect(pm.collectionVariables.get('timeStamp')).to.be.above(jsonData.data[0].publishDate);",
+													"// });",
+													"",
+													"pm.test(\"Check limit is 5\", function () {",
+													"    pm.expect(jsonData.limit).to.eql(5);",
+													"});",
+													"",
+													"pm.test(\"Check page is 0\", function () {",
+													"    pm.expect(jsonData.page).to.eql(0);",
+													"});",
+													"",
+													"pm.test(\"Check body total is number\", function () {",
+													"    pm.expect(jsonData.total).to.be.a('number')",
+													"});",
+													"",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{host}}/comment?limit=5",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"comment"
+											],
+											"query": [
+												{
+													"key": "page",
+													"value": "",
+													"disabled": true
+												},
+												{
+													"key": "limit",
+													"value": "5"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "GetPostList (limit = 50)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200 OK\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Status code is OK\", function () {",
+													"    pm.response.to.have.status(\"OK\");",
+													"});",
+													"",
+													"pm.test(\"Response time is less than 500ms\", function () {",
+													"    pm.expect(pm.response.responseTime).to.be.below(500);",
+													"});",
+													"",
+													"var jsonData = pm.response.json();",
+													"",
+													"pm.collectionVariables.set(\"userId\", jsonData.id); // создаем переменную пользователя",
+													"",
+													"//pm.collectionVariables.set(\"timeStep\", replaceIn('{{$isoTimestamp}}'));",
+													"",
+													"pm.test(\"Check body data is Array\", function () {",
+													"    pm.expect(jsonData.data).to.be.an(\"Array\");",
+													"});",
+													"",
+													"pm.test(\"Check body id is String\", function () {",
+													"    pm.expect(jsonData.data[0].id).to.be.an(\"String\");",
+													"});",
+													"",
+													"pm.test(\"Check body message is String\", function () {",
+													"    pm.expect(jsonData.data[1].message).to.be.an(\"String\");",
+													"});",
+													"",
+													"pm.test(\"Check body (2 < message < 500)\", function () {",
+													"    pm.expect(jsonData.data[1].message).to.have.lengthOf.within(2, 500);",
+													"});",
+													"",
+													"pm.test(\"Check body owner is Object\", function () {",
+													"    pm.expect(jsonData.data[2].owner).to.be.an('Object');",
+													"});",
+													"",
+													"",
+													"pm.test(\"Check body owner userId is String\", function () {",
+													"    pm.expect(jsonData.data[2].owner.id).to.be.an('String');",
+													"});",
+													"",
+													"pm.test(\"Check body owner userTitle is valid gender - mr, ms, miss...\", function () {",
+													"    pm.expect(jsonData.data[2].owner.title).to.equal('mr', 'ms', 'mrs', 'miss', 'dr', null);",
+													"});",
+													"",
+													"pm.test(\"Check body owner userFirstName is String\", function () {",
+													"    pm.expect(jsonData.data[2].owner.firstName).to.be.an('String');",
+													"});",
+													"",
+													"pm.test(\"Check body owner userFirstName (2 < firstName < 50)\", function () {",
+													"    pm.expect(jsonData.data[2].owner.firstName).to.have.lengthOf.within(2, 50);",
+													"});",
+													"",
+													"pm.test(\"Check body owner userLastName is String\", function () {",
+													"    pm.expect(jsonData.data[2].owner.lastName).to.be.an('String');",
+													"});",
+													"",
+													"pm.test(\"Check body owner userLastName (2 < lastName < 50)\", function () {",
+													"    pm.expect(jsonData.data[2].owner.lastName).to.have.lengthOf.within(2, 50);",
+													"});",
+													"",
+													"pm.test(\"Check body owner userPicture is String (URL)\", function () {",
+													"    pm.expect(jsonData.data[2].owner.picture).to.include('http');",
+													"});",
+													"",
+													"pm.test(\"Check body post is String\", function () {",
+													"    pm.expect(jsonData.data[3].post).to.be.an(\"String\");",
+													"});",
+													"",
+													"pm.test(\"Check body publishDate is String\", function () {",
+													"    pm.expect(jsonData.data[4].publishDate).to.be.an(\"String\");",
+													"});",
+													"",
+													"// сравниваем дату с календарём",
+													"// pm.collectionVariables.set(\"timeStamp\", pm.variables.replaceIn('{{$isoTimestamp}}'));",
+													"// pm.test(\"Check body publishDate is date\", function () {",
+													"//         pm.expect(pm.collectionVariables.get('timeStamp')).to.be.above(jsonData.data[0].publishDate);",
+													"// });",
+													"",
+													"pm.test(\"Check limit is 50\", function () {",
+													"    pm.expect(jsonData.limit).to.eql(50);",
+													"});",
+													"",
+													"pm.test(\"Check page is 0\", function () {",
+													"    pm.expect(jsonData.page).to.eql(0);",
+													"});",
+													"",
+													"pm.test(\"Check body total is number\", function () {",
+													"    pm.expect(jsonData.total).to.be.a('number')",
+													"});",
+													"",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{host}}/comment?limit=50",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"comment"
+											],
+											"query": [
+												{
+													"key": "page",
+													"value": "",
+													"disabled": true
+												},
+												{
+													"key": "limit",
+													"value": "50"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "GetPostList (limit = 51) невалид",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 404\", function () {",
+													"    pm.response.to.have.status(404);",
+													"});",
+													"",
+													"pm.test(\"Status code is Not found\", function () {",
+													"    pm.response.to.have.status(\"Not Found\");",
+													"});",
+													"",
+													"pm.test(\"Response time is less than 500ms\", function () {",
+													"    pm.expect(pm.response.responseTime).to.be.below(500);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{host}}/comment?limit=51",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"comment"
+											],
+											"query": [
+												{
+													"key": "page",
+													"value": "",
+													"disabled": true
+												},
+												{
+													"key": "limit",
+													"value": "51"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "GetPostList (limit = Text) невалид",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 404\", function () {",
+													"    pm.response.to.have.status(404);",
+													"});",
+													"",
+													"pm.test(\"Status code is Not found\", function () {",
+													"    pm.response.to.have.status(\"Not Found\");",
+													"});",
+													"",
+													"pm.test(\"Response time is less than 500ms\", function () {",
+													"    pm.expect(pm.response.responseTime).to.be.below(500);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{host}}/comment?limit=Text",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"comment"
+											],
+											"query": [
+												{
+													"key": "page",
+													"value": "",
+													"disabled": true
+												},
+												{
+													"key": "limit",
+													"value": "Text"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Created",
+							"item": [
+								{
+									"name": "GetPostList (created = 0) невалид",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200 OK\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Status code is OK\", function () {",
+													"    pm.response.to.have.status(\"OK\");",
+													"});",
+													"",
+													"pm.test(\"Response time is less than 500ms\", function () {",
+													"    pm.expect(pm.response.responseTime).to.be.below(500);",
+													"});",
+													"",
+													"var jsonData = pm.response.json();",
+													"",
+													"pm.collectionVariables.set(\"userId\", jsonData.id); // создаем переменную пользователя",
+													"",
+													"//pm.collectionVariables.set(\"timeStep\", replaceIn('{{$isoTimestamp}}'));",
+													"",
+													"pm.test(\"Check body data is Array\", function () {",
+													"    pm.expect(jsonData.data).to.be.an(\"Array\");",
+													"});",
+													"",
+													"pm.test(\"Check body id is String\", function () {",
+													"    pm.expect(jsonData.data[0].id).to.be.an(\"String\");",
+													"});",
+													"",
+													"pm.test(\"Check body message is String\", function () {",
+													"    pm.expect(jsonData.data[1].message).to.be.an(\"String\");",
+													"});",
+													"",
+													"pm.test(\"Check body (2 < message < 500)\", function () {",
+													"    pm.expect(jsonData.data[1].message).to.have.lengthOf.within(2, 500);",
+													"});",
+													"",
+													"pm.test(\"Check body owner is Object\", function () {",
+													"    pm.expect(jsonData.data[2].owner).to.be.an('Object');",
+													"});",
+													"",
+													"",
+													"pm.test(\"Check body owner userId is String\", function () {",
+													"    pm.expect(jsonData.data[2].owner.id).to.be.an('String');",
+													"});",
+													"",
+													"pm.test(\"Check body owner userTitle is valid gender - mr, ms, miss...\", function () {",
+													"    pm.expect(jsonData.data[2].owner.title).to.equal('mr', 'ms', 'mrs', 'miss', 'dr', null);",
+													"});",
+													"",
+													"pm.test(\"Check body owner userFirstName is String\", function () {",
+													"    pm.expect(jsonData.data[2].owner.firstName).to.be.an('String');",
+													"});",
+													"",
+													"pm.test(\"Check body owner userFirstName (2 < firstName < 50)\", function () {",
+													"    pm.expect(jsonData.data[2].owner.firstName).to.have.lengthOf.within(2, 50);",
+													"});",
+													"",
+													"pm.test(\"Check body owner userLastName is String\", function () {",
+													"    pm.expect(jsonData.data[2].owner.lastName).to.be.an('String');",
+													"});",
+													"",
+													"pm.test(\"Check body owner userLastName (2 < lastName < 50)\", function () {",
+													"    pm.expect(jsonData.data[2].owner.lastName).to.have.lengthOf.within(2, 50);",
+													"});",
+													"",
+													"pm.test(\"Check body owner userPicture is String (URL)\", function () {",
+													"    pm.expect(jsonData.data[2].owner.picture).to.include('http');",
+													"});",
+													"",
+													"pm.test(\"Check body post is String\", function () {",
+													"    pm.expect(jsonData.data[3].post).to.be.an(\"String\");",
+													"});",
+													"",
+													"pm.test(\"Check body publishDate is String\", function () {",
+													"    pm.expect(jsonData.data[4].publishDate).to.be.an(\"String\");",
+													"});",
+													"",
+													"// pm.collectionVariables.set(\"timeStamp\", pm.variables.replaceIn('{{$isoTimestamp}}'));",
+													"// pm.test(\"Check body publishDate is date\", function () {",
+													"//         pm.expect(pm.collectionVariables.get('timeStamp')).to.be.above(jsonData.data[0].publishDate);",
+													"// });",
+													"",
+													"pm.test(\"Check limit is 20\", function () {",
+													"    pm.expect(jsonData.limit).to.eql(20);",
+													"});",
+													"",
+													"pm.test(\"Check page is 0\", function () {",
+													"    pm.expect(jsonData.page).to.eql(0);",
+													"});",
+													"",
+													"pm.test(\"Check body total is number\", function () {",
+													"    pm.expect(jsonData.total).to.be.a('number')",
+													"});",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{host}}/comment?created=0",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"comment"
+											],
+											"query": [
+												{
+													"key": "page",
+													"value": "",
+													"disabled": true
+												},
+												{
+													"key": "limit",
+													"value": "Text",
+													"disabled": true
+												},
+												{
+													"key": "created",
+													"value": "0"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "GetPostList (created = 1)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200 OK\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Status code is OK\", function () {",
+													"    pm.response.to.have.status(\"OK\");",
+													"});",
+													"",
+													"pm.test(\"Response time is less than 500ms\", function () {",
+													"    pm.expect(pm.response.responseTime).to.be.below(500);",
+													"});",
+													"",
+													"var jsonData = pm.response.json();",
+													"",
+													"pm.collectionVariables.set(\"userId\", jsonData.id); // создаем переменную пользователя",
+													"",
+													"//pm.collectionVariables.set(\"timeStep\", replaceIn('{{$isoTimestamp}}'));",
+													"",
+													"pm.test(\"Check body data is Array\", function () {",
+													"    pm.expect(jsonData.data).to.be.an(\"Array\");",
+													"});",
+													"",
+													"pm.test(\"Check body id is String\", function () {",
+													"    pm.expect(jsonData.data[0].id).to.be.an(\"String\");",
+													"});",
+													"",
+													"pm.test(\"Check body message is String\", function () {",
+													"    pm.expect(jsonData.data[1].message).to.be.an(\"String\");",
+													"});",
+													"",
+													"pm.test(\"Check body (2 < message < 500)\", function () {",
+													"    pm.expect(jsonData.data[1].message).to.have.lengthOf.within(2, 500);",
+													"});",
+													"",
+													"pm.test(\"Check body owner is Object\", function () {",
+													"    pm.expect(jsonData.data[2].owner).to.be.an('Object');",
+													"});",
+													"",
+													"",
+													"pm.test(\"Check body owner userId is String\", function () {",
+													"    pm.expect(jsonData.data[2].owner.id).to.be.an('String');",
+													"});",
+													"",
+													"pm.test(\"Check body owner userTitle is valid gender - mr, ms, miss...\", function () {",
+													"    pm.expect(jsonData.data[2].owner.title).to.equal('mr', 'ms', 'mrs', 'miss', 'dr', null);",
+													"});",
+													"",
+													"pm.test(\"Check body owner userFirstName is String\", function () {",
+													"    pm.expect(jsonData.data[2].owner.firstName).to.be.an('String');",
+													"});",
+													"",
+													"pm.test(\"Check body owner userFirstName (2 < firstName < 50)\", function () {",
+													"    pm.expect(jsonData.data[2].owner.firstName).to.have.lengthOf.within(2, 50);",
+													"});",
+													"",
+													"pm.test(\"Check body owner userLastName is String\", function () {",
+													"    pm.expect(jsonData.data[2].owner.lastName).to.be.an('String');",
+													"});",
+													"",
+													"pm.test(\"Check body owner userLastName (2 < lastName < 50)\", function () {",
+													"    pm.expect(jsonData.data[2].owner.lastName).to.have.lengthOf.within(2, 50);",
+													"});",
+													"",
+													"pm.test(\"Check body owner userPicture is String (URL)\", function () {",
+													"    pm.expect(jsonData.data[2].owner.picture).to.include('http');",
+													"});",
+													"",
+													"pm.test(\"Check body post is String\", function () {",
+													"    pm.expect(jsonData.data[3].post).to.be.an(\"String\");",
+													"});",
+													"",
+													"pm.test(\"Check body publishDate is String\", function () {",
+													"    pm.expect(jsonData.data[4].publishDate).to.be.an(\"String\");",
+													"});",
+													"",
+													"// pm.collectionVariables.set(\"timeStamp\", pm.variables.replaceIn('{{$isoTimestamp}}'));",
+													"// pm.test(\"Check body publishDate is date\", function () {",
+													"//         pm.expect(pm.collectionVariables.get('timeStamp')).to.be.above(jsonData.data[0].publishDate);",
+													"// });",
+													"",
+													"pm.test(\"Check limit is 20\", function () {",
+													"    pm.expect(jsonData.limit).to.eql(20);",
+													"});",
+													"",
+													"pm.test(\"Check page is 0\", function () {",
+													"    pm.expect(jsonData.page).to.eql(0);",
+													"});",
+													"",
+													"pm.test(\"Check body total is number\", function () {",
+													"    pm.expect(jsonData.total).to.be.a('number')",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{host}}/comment?created=1",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"comment"
+											],
+											"query": [
+												{
+													"key": "page",
+													"value": "",
+													"disabled": true
+												},
+												{
+													"key": "limit",
+													"value": "Text",
+													"disabled": true
+												},
+												{
+													"key": "created",
+													"value": "1"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "GetPostList (created = ) без параметра",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200 OK\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Status code is OK\", function () {",
+													"    pm.response.to.have.status(\"OK\");",
+													"});",
+													"",
+													"pm.test(\"Response time is less than 500ms\", function () {",
+													"    pm.expect(pm.response.responseTime).to.be.below(500);",
+													"});",
+													"",
+													"var jsonData = pm.response.json();",
+													"",
+													"pm.collectionVariables.set(\"userId\", jsonData.id); // создаем переменную пользователя",
+													"",
+													"//pm.collectionVariables.set(\"timeStep\", replaceIn('{{$isoTimestamp}}'));",
+													"",
+													"pm.test(\"Check body data is Array\", function () {",
+													"    pm.expect(jsonData.data).to.be.an(\"Array\");",
+													"});",
+													"",
+													"pm.test(\"Check body id is String\", function () {",
+													"    pm.expect(jsonData.data[0].id).to.be.an(\"String\");",
+													"});",
+													"",
+													"pm.test(\"Check body message is String\", function () {",
+													"    pm.expect(jsonData.data[1].message).to.be.an(\"String\");",
+													"});",
+													"",
+													"pm.test(\"Check body (2 < message < 500)\", function () {",
+													"    pm.expect(jsonData.data[1].message).to.have.lengthOf.within(2, 500);",
+													"});",
+													"",
+													"pm.test(\"Check body owner is Object\", function () {",
+													"    pm.expect(jsonData.data[2].owner).to.be.an('Object');",
+													"});",
+													"",
+													"",
+													"pm.test(\"Check body owner userId is String\", function () {",
+													"    pm.expect(jsonData.data[2].owner.id).to.be.an('String');",
+													"});",
+													"",
+													"pm.test(\"Check body owner userTitle is valid gender - mr, ms, miss...\", function () {",
+													"    pm.expect(jsonData.data[2].owner.title).to.equal('mr', 'ms', 'mrs', 'miss', 'dr', null);",
+													"});",
+													"",
+													"pm.test(\"Check body owner userFirstName is String\", function () {",
+													"    pm.expect(jsonData.data[2].owner.firstName).to.be.an('String');",
+													"});",
+													"",
+													"pm.test(\"Check body owner userFirstName (2 < firstName < 50)\", function () {",
+													"    pm.expect(jsonData.data[2].owner.firstName).to.have.lengthOf.within(2, 50);",
+													"});",
+													"",
+													"pm.test(\"Check body owner userLastName is String\", function () {",
+													"    pm.expect(jsonData.data[2].owner.lastName).to.be.an('String');",
+													"});",
+													"",
+													"pm.test(\"Check body owner userLastName (2 < lastName < 50)\", function () {",
+													"    pm.expect(jsonData.data[2].owner.lastName).to.have.lengthOf.within(2, 50);",
+													"});",
+													"",
+													"pm.test(\"Check body owner userPicture is String (URL)\", function () {",
+													"    pm.expect(jsonData.data[2].owner.picture).to.include('http');",
+													"});",
+													"",
+													"pm.test(\"Check body post is String\", function () {",
+													"    pm.expect(jsonData.data[3].post).to.be.an(\"String\");",
+													"});",
+													"",
+													"pm.test(\"Check body publishDate is String\", function () {",
+													"    pm.expect(jsonData.data[4].publishDate).to.be.an(\"String\");",
+													"});",
+													"",
+													"// pm.collectionVariables.set(\"timeStamp\", pm.variables.replaceIn('{{$isoTimestamp}}'));",
+													"// pm.test(\"Check body publishDate is date\", function () {",
+													"//         pm.expect(pm.collectionVariables.get('timeStamp')).to.be.above(jsonData.data[0].publishDate);",
+													"// });",
+													"",
+													"pm.test(\"Check limit is 20\", function () {",
+													"    pm.expect(jsonData.limit).to.eql(20);",
+													"});",
+													"",
+													"pm.test(\"Check page is 0\", function () {",
+													"    pm.expect(jsonData.page).to.eql(0);",
+													"});",
+													"",
+													"pm.test(\"Check body total is number\", function () {",
+													"    pm.expect(jsonData.total).to.be.a('number')",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{host}}/comment?created=",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"comment"
+											],
+											"query": [
+												{
+													"key": "page",
+													"value": "",
+													"disabled": true
+												},
+												{
+													"key": "limit",
+													"value": "Text",
+													"disabled": true
+												},
+												{
+													"key": "created",
+													"value": ""
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "GetPostList (created = 2) невалид",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 404\", function () {",
+													"    pm.response.to.have.status(404);",
+													"});",
+													"",
+													"pm.test(\"Status code is Not found\", function () {",
+													"    pm.response.to.have.status(\"Not Found\");",
+													"});",
+													"",
+													"pm.test(\"Response time is less than 500ms\", function () {",
+													"    pm.expect(pm.response.responseTime).to.be.below(500);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{host}}/comment?created=2",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"comment"
+											],
+											"query": [
+												{
+													"key": "page",
+													"value": "",
+													"disabled": true
+												},
+												{
+													"key": "limit",
+													"value": "Text",
+													"disabled": true
+												},
+												{
+													"key": "created",
+													"value": "2"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "GetPostList (created = Text) невалид",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 404\", function () {",
+													"    pm.response.to.have.status(404);",
+													"});",
+													"",
+													"pm.test(\"Status code is Not found\", function () {",
+													"    pm.response.to.have.status(\"Not Found\");",
+													"});",
+													"",
+													"pm.test(\"Response time is less than 500ms\", function () {",
+													"    pm.expect(pm.response.responseTime).to.be.below(500);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{host}}/comment?created=Text",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"comment"
+											],
+											"query": [
+												{
+													"key": "page",
+													"value": "",
+													"disabled": true
+												},
+												{
+													"key": "limit",
+													"value": "Text",
+													"disabled": true
+												},
+												{
+													"key": "created",
+													"value": "Text"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "GET Comment List By Post",
+			"item": [
+				{
+					"name": "Get CommentList",
+					"item": [
+						{
+							"name": "GetCommentList",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200 OK\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Status code is OK\", function () {",
+											"    pm.response.to.have.status(\"OK\");",
+											"});",
+											"",
+											"pm.test(\"Response time is less than 500ms\", function () {",
+											"    pm.expect(pm.response.responseTime).to.be.below(500);",
+											"});",
+											"",
+											"var jsonData = pm.response.json();",
+											"",
+											"pm.collectionVariables.set(\"userId\", jsonData.id); // создаем переменную пользователя",
+											"",
+											"//pm.collectionVariables.set(\"timeStep\", replaceIn('{{$isoTimestamp}}'));",
+											"",
+											"pm.test(\"Check body data is Array\", function () {",
+											"    pm.expect(jsonData.data).to.be.an(\"Array\");",
+											"});",
+											"",
+											"pm.test(\"Check body id is String\", function () {",
+											"    pm.expect(jsonData.data[0].id).to.be.an(\"String\");",
+											"});",
+											"",
+											"pm.test(\"Check body message is String\", function () {",
+											"    pm.expect(jsonData.data[1].message).to.be.an(\"String\");",
+											"});",
+											"",
+											"pm.test(\"Check body (2 < message < 500)\", function () {",
+											"    pm.expect(jsonData.data[1].message).to.have.lengthOf.within(2, 500);",
+											"});",
+											"",
+											"pm.test(\"Check body owner is Object\", function () {",
+											"    pm.expect(jsonData.data[2].owner).to.be.an('Object');",
+											"});",
+											"",
+											"",
+											"pm.test(\"Check body owner userId is String\", function () {",
+											"    pm.expect(jsonData.data[2].owner.id).to.be.an('String');",
+											"});",
+											"",
+											"pm.test(\"Check body owner userTitle is valid gender - mr, ms, miss...\", function () {",
+											"    var title = {gender:['mr', 'ms', 'mrs', 'miss', 'dr', null]};",
+											"    pm.expect(title.gender).to.deep.include(jsonData.data[2].owner.title);",
+											"});",
+											"",
+											"pm.test(\"Check body owner userFirstName is String\", function () {",
+											"    pm.expect(jsonData.data[2].owner.firstName).to.be.an('String');",
+											"});",
+											"",
+											"pm.test(\"Check body owner userFirstName (2 < firstName < 50)\", function () {",
+											"    pm.expect(jsonData.data[2].owner.firstName).to.have.lengthOf.within(2, 50);",
+											"});",
+											"",
+											"pm.test(\"Check body owner userLastName is String\", function () {",
+											"    pm.expect(jsonData.data[2].owner.lastName).to.be.an('String');",
+											"});",
+											"",
+											"pm.test(\"Check body owner userLastName (2 < lastName < 50)\", function () {",
+											"    pm.expect(jsonData.data[2].owner.lastName).to.have.lengthOf.within(2, 50);",
+											"});",
+											"",
+											"pm.test(\"Check body owner userPicture is String (URL)\", function () {",
+											"    pm.expect(jsonData.data[2].owner.picture).to.include('http');",
+											"});",
+											"",
+											"pm.test(\"Check body post is String\", function () {",
+											"    pm.expect(jsonData.data[3].post).to.be.an(\"String\");",
+											"});",
+											"",
+											"pm.test(\"Check body publishDate is String\", function () {",
+											"    pm.expect(jsonData.data[4].publishDate).to.be.an(\"String\");",
+											"});",
+											"",
+											"// pm.collectionVariables.set(\"timeStamp\", pm.variables.replaceIn('{{$isoTimestamp}}'));",
+											"// pm.test(\"Check body publishDate is date\", function () {",
+											"//         pm.expect(pm.collectionVariables.get('timeStamp')).to.be.above(jsonData.data[0].publishDate);",
+											"// });",
+											"",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/post/{{PostId}}/comment",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"post",
+										"{{PostId}}",
+										"comment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "NoVal GetCommentList",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 404\", function () {",
+											"    pm.response.to.have.status(404);",
+											"});",
+											"",
+											"pm.test(\"Status code is Not found\", function () {",
+											"    pm.response.to.have.status(\"Not Found\");",
+											"});",
+											"",
+											"pm.test(\"Response time is less than 500ms\", function () {",
+											"    pm.expect(pm.response.responseTime).to.be.below(500);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/comment",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"comment"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Params Copy",
+					"item": [
+						{
+							"name": "Page",
+							"item": [
+								{
+									"name": "GetPostList (page = 0)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200 OK\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Status code is OK\", function () {\r",
+													"    pm.response.to.have.status(\"OK\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response time is less than 500ms\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+													"});\r",
+													"\r",
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.collectionVariables.set(\"userId\", jsonData.id); // создаем переменную пользователя\r",
+													"\r",
+													"//pm.collectionVariables.set(\"timeStep\", replaceIn('{{$isoTimestamp}}'));\r",
+													"\r",
+													"pm.test(\"Check body data is Array\", function () {\r",
+													"    pm.expect(jsonData.data).to.be.an(\"Array\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body id is String\", function () {\r",
+													"    pm.expect(jsonData.data[0].id).to.be.an(\"String\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body message is String\", function () {\r",
+													"    pm.expect(jsonData.data[1].message).to.be.an(\"String\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body (2 < message < 500)\", function () {\r",
+													"    pm.expect(jsonData.data[1].message).to.have.lengthOf.within(2, 500);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body owner is Object\", function () {\r",
+													"    pm.expect(jsonData.data[2].owner).to.be.an('Object');\r",
+													"});\r",
+													"\r",
+													"\r",
+													"pm.test(\"Check body owner userId is String\", function () {\r",
+													"    pm.expect(jsonData.data[2].owner.id).to.be.an('String');\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body owner userTitle is valid gender - mr, ms, miss...\", function () {\r",
+													"    pm.expect(jsonData.data[2].owner.title).to.equal('mr', 'ms', 'mrs', 'miss', 'dr', null);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body owner userFirstName is String\", function () {\r",
+													"    pm.expect(jsonData.data[2].owner.firstName).to.be.an('String');\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body owner userFirstName (2 < firstName < 50)\", function () {\r",
+													"    pm.expect(jsonData.data[2].owner.firstName).to.have.lengthOf.within(2, 50);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body owner userLastName is String\", function () {\r",
+													"    pm.expect(jsonData.data[2].owner.lastName).to.be.an('String');\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body owner userLastName (2 < lastName < 50)\", function () {\r",
+													"    pm.expect(jsonData.data[2].owner.lastName).to.have.lengthOf.within(2, 50);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body owner userPicture is String (URL)\", function () {\r",
+													"    pm.expect(jsonData.data[2].owner.picture).to.include('http');\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body post is String\", function () {\r",
+													"    pm.expect(jsonData.data[3].post).to.be.an(\"String\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body publishDate is String\", function () {\r",
+													"    pm.expect(jsonData.data[4].publishDate).to.be.an(\"String\");\r",
+													"});\r",
+													"\r",
+													"// pm.collectionVariables.set(\"timeStamp\", pm.variables.replaceIn('{{$isoTimestamp}}'));\r",
+													"// pm.test(\"Check body publishDate is date\", function () {\r",
+													"//         pm.expect(pm.collectionVariables.get('timeStamp')).to.be.above(jsonData.data[4].publishDate);\r",
+													"// });\r",
+													"\r",
+													"pm.test(\"Check limit is 20\", function () {\r",
+													"    pm.expect(jsonData.limit).to.eql(20);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check page is 0\", function () {\r",
+													"    pm.expect(jsonData.page).to.eql(0);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body total is number\", function () {\r",
+													"    pm.expect(jsonData.total).to.be.a('number')\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body total is 997\", function () {\r",
+													"    pm.expect(jsonData.total).to.eql(997);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{host}}/comment?page=0",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"comment"
+											],
+											"query": [
+												{
+													"key": "page",
+													"value": "0"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "GetPostList (page = 1)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200 OK\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Status code is OK\", function () {\r",
+													"    pm.response.to.have.status(\"OK\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response time is less than 500ms\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+													"});\r",
+													"\r",
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.collectionVariables.set(\"userId\", jsonData.id); // создаем переменную пользователя\r",
+													"\r",
+													"//pm.collectionVariables.set(\"timeStep\", replaceIn('{{$isoTimestamp}}'));\r",
+													"\r",
+													"pm.test(\"Check body data is Array\", function () {\r",
+													"    pm.expect(jsonData.data).to.be.an(\"Array\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body id is String\", function () {\r",
+													"    pm.expect(jsonData.data[0].id).to.be.an(\"String\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body message is String\", function () {\r",
+													"    pm.expect(jsonData.data[1].message).to.be.an(\"String\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body (2 < message < 500)\", function () {\r",
+													"    pm.expect(jsonData.data[1].message).to.have.lengthOf.within(2, 500);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body owner is Object\", function () {\r",
+													"    pm.expect(jsonData.data[2].owner).to.be.an('Object');\r",
+													"});\r",
+													"\r",
+													"\r",
+													"pm.test(\"Check body owner userId is String\", function () {\r",
+													"    pm.expect(jsonData.data[2].owner.id).to.be.an('String');\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body owner userTitle is valid gender - mr, ms, miss...\", function () {\r",
+													"    var title = {gender:['mr', 'ms', 'mrs', 'miss', 'dr', null]};\r",
+													"    pm.expect(title.gender).to.deep.include(jsonData.data[2].owner.title);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body owner userFirstName is String\", function () {\r",
+													"    pm.expect(jsonData.data[2].owner.firstName).to.be.an('String');\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body owner userFirstName (2 < firstName < 50)\", function () {\r",
+													"    pm.expect(jsonData.data[2].owner.firstName).to.have.lengthOf.within(2, 50);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body owner userLastName is String\", function () {\r",
+													"    pm.expect(jsonData.data[2].owner.lastName).to.be.an('String');\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body owner userLastName (2 < lastName < 50)\", function () {\r",
+													"    pm.expect(jsonData.data[2].owner.lastName).to.have.lengthOf.within(2, 50);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body owner userPicture is String (URL)\", function () {\r",
+													"    pm.expect(jsonData.data[2].owner.picture).to.include('http');\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body post is String\", function () {\r",
+													"    pm.expect(jsonData.data[3].post).to.be.an(\"String\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body publishDate is String\", function () {\r",
+													"    pm.expect(jsonData.data[4].publishDate).to.be.an(\"String\");\r",
+													"});\r",
+													"\r",
+													"// pm.collectionVariables.set(\"timeStamp\", pm.variables.replaceIn('{{$isoTimestamp}}'));\r",
+													"// pm.test(\"Check body publishDate is date\", function () {\r",
+													"//         pm.expect(pm.collectionVariables.get('timeStamp')).to.be.above(jsonData.data[4].publishDate);\r",
+													"// });\r",
+													"\r",
+													"pm.test(\"Check limit is 20\", function () {\r",
+													"    pm.expect(jsonData.limit).to.eql(20);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check page is 1\", function () {\r",
+													"    pm.expect(jsonData.page).to.eql(1);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body total is number\", function () {\r",
+													"    pm.expect(jsonData.total).to.be.a('number')\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body total is 997\", function () {\r",
+													"    pm.expect(jsonData.total).to.eql(997);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{host}}/comment?page=1",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"comment"
+											],
+											"query": [
+												{
+													"key": "page",
+													"value": "1"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "GetPostList (page = 999)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200 OK\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Status code is OK\", function () {\r",
+													"    pm.response.to.have.status(\"OK\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response time is less than 500ms\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+													"});\r",
+													"\r",
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.collectionVariables.set(\"userId\", jsonData.id); // создаем переменную пользователя\r",
+													"\r",
+													"//pm.collectionVariables.set(\"timeStep\", replaceIn('{{$isoTimestamp}}'));\r",
+													"\r",
+													"pm.test(\"Check body data is Array\", function () {\r",
+													"    pm.expect(jsonData.data).to.be.an(\"Array\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body id is String\", function () {\r",
+													"    pm.expect(jsonData.data[0].id).to.be.an(\"String\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body message is String\", function () {\r",
+													"    pm.expect(jsonData.data[1].message).to.be.an(\"String\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body (2 < message < 500)\", function () {\r",
+													"    pm.expect(jsonData.data[1].message).to.have.lengthOf.within(2, 500);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body owner is Object\", function () {\r",
+													"    pm.expect(jsonData.data[2].owner).to.be.an('Object');\r",
+													"});\r",
+													"\r",
+													"\r",
+													"pm.test(\"Check body owner userId is String\", function () {\r",
+													"    pm.expect(jsonData.data[2].owner.id).to.be.an('String');\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body owner userTitle is valid gender - mr, ms, miss...\", function () {\r",
+													"    var title = {gender:['mr', 'ms', 'mrs', 'miss', 'dr', null]};\r",
+													"    pm.expect(title.gender).to.deep.include(jsonData.data[2].owner.title);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body owner userFirstName is String\", function () {\r",
+													"    pm.expect(jsonData.data[2].owner.firstName).to.be.an('String');\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body owner userFirstName (2 < firstName < 50)\", function () {\r",
+													"    pm.expect(jsonData.data[2].owner.firstName).to.have.lengthOf.within(2, 50);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body owner userLastName is String\", function () {\r",
+													"    pm.expect(jsonData.data[2].owner.lastName).to.be.an('String');\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body owner userLastName (2 < lastName < 50)\", function () {\r",
+													"    pm.expect(jsonData.data[2].owner.lastName).to.have.lengthOf.within(2, 50);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body owner userPicture is String (URL)\", function () {\r",
+													"    pm.expect(jsonData.data[2].owner.picture).to.include('http');\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body post is String\", function () {\r",
+													"    pm.expect(jsonData.data[3].post).to.be.an(\"String\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body publishDate is String\", function () {\r",
+													"    pm.expect(jsonData.data[4].publishDate).to.be.an(\"String\");\r",
+													"});\r",
+													"\r",
+													"// pm.collectionVariables.set(\"timeStamp\", pm.variables.replaceIn('{{$isoTimestamp}}'));\r",
+													"// pm.test(\"Check body publishDate is date\", function () {\r",
+													"//         pm.expect(pm.collectionVariables.get('timeStamp')).to.be.above(jsonData.data[4].publishDate);\r",
+													"// });\r",
+													"\r",
+													"pm.test(\"Check limit is 20\", function () {\r",
+													"    pm.expect(jsonData.limit).to.eql(20);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check page is 999\", function () {\r",
+													"    pm.expect(jsonData.page).to.eql(999);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body total is number\", function () {\r",
+													"    pm.expect(jsonData.total).to.be.a('number')\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body total is 997\", function () {\r",
+													"    pm.expect(jsonData.total).to.eql(997);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{host}}/comment?page=999",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"comment"
+											],
+											"query": [
+												{
+													"key": "page",
+													"value": "999"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "GetPostList (page = 1000) невалид",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 404\", function () {\r",
+													"    pm.response.to.have.status(404);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Status code is Not found\", function () {\r",
+													"    pm.response.to.have.status(\"Not Found\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response time is less than 500ms\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{host}}/comment?page=1000",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"comment"
+											],
+											"query": [
+												{
+													"key": "page",
+													"value": "1000"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "GetPostList (page = Text) невалид",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 404\", function () {\r",
+													"    pm.response.to.have.status(404);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Status code is Not found\", function () {\r",
+													"    pm.response.to.have.status(\"Not Found\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response time is less than 500ms\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{host}}/comment?page=Text",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"comment"
+											],
+											"query": [
+												{
+													"key": "page",
+													"value": "Text"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "GetPostList (page = ) без параметров",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200 OK\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Status code is OK\", function () {\r",
+													"    pm.response.to.have.status(\"OK\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response time is less than 500ms\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+													"});\r",
+													"\r",
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.collectionVariables.set(\"userId\", jsonData.id); // создаем переменную пользователя\r",
+													"\r",
+													"//pm.collectionVariables.set(\"timeStep\", replaceIn('{{$isoTimestamp}}'));\r",
+													"\r",
+													"pm.test(\"Check body data is Array\", function () {\r",
+													"    pm.expect(jsonData.data).to.be.an(\"Array\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body id is String\", function () {\r",
+													"    pm.expect(jsonData.data[0].id).to.be.an(\"String\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body message is String\", function () {\r",
+													"    pm.expect(jsonData.data[1].message).to.be.an(\"String\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body (2 < message < 500)\", function () {\r",
+													"    pm.expect(jsonData.data[1].message).to.have.lengthOf.within(2, 500);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body owner is Object\", function () {\r",
+													"    pm.expect(jsonData.data[2].owner).to.be.an('Object');\r",
+													"});\r",
+													"\r",
+													"\r",
+													"pm.test(\"Check body owner userId is String\", function () {\r",
+													"    pm.expect(jsonData.data[2].owner.id).to.be.an('String');\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body owner userTitle is valid gender - mr, ms, miss...\", function () {\r",
+													"    pm.expect(jsonData.data[2].owner.title).to.equal('mr', 'ms', 'mrs', 'miss', 'dr', null);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body owner userFirstName is String\", function () {\r",
+													"    pm.expect(jsonData.data[2].owner.firstName).to.be.an('String');\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body owner userFirstName (2 < firstName < 50)\", function () {\r",
+													"    pm.expect(jsonData.data[2].owner.firstName).to.have.lengthOf.within(2, 50);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body owner userLastName is String\", function () {\r",
+													"    pm.expect(jsonData.data[2].owner.lastName).to.be.an('String');\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body owner userLastName (2 < lastName < 50)\", function () {\r",
+													"    pm.expect(jsonData.data[2].owner.lastName).to.have.lengthOf.within(2, 50);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body owner userPicture is String (URL)\", function () {\r",
+													"    pm.expect(jsonData.data[2].owner.picture).to.include('http');\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body post is String\", function () {\r",
+													"    pm.expect(jsonData.data[3].post).to.be.an(\"String\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body publishDate is String\", function () {\r",
+													"    pm.expect(jsonData.data[4].publishDate).to.be.an(\"String\");\r",
+													"});\r",
+													"\r",
+													"// pm.collectionVariables.set(\"timeStamp\", pm.variables.replaceIn('{{$isoTimestamp}}'));\r",
+													"// pm.test(\"Check body publishDate is date\", function () {\r",
+													"//         pm.expect(pm.collectionVariables.get('timeStamp')).to.be.above(jsonData.data[0].publishDate);\r",
+													"// });\r",
+													"\r",
+													"pm.test(\"Check limit is 20\", function () {\r",
+													"    pm.expect(jsonData.limit).to.eql(20);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check page is NULL\", function () {\r",
+													"    pm.expect(jsonData.page).to.eql(null);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body total is number\", function () {\r",
+													"    pm.expect(jsonData.total).to.be.a('number')\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check body total is 997\", function () {\r",
+													"    pm.expect(jsonData.total).to.eql(997);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{host}}/comment?page=",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"comment"
+											],
+											"query": [
+												{
+													"key": "page",
+													"value": ""
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Limit",
+							"item": [
+								{
+									"name": "GetPostList (limit = ) без параметров",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200 OK\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Status code is OK\", function () {",
+													"    pm.response.to.have.status(\"OK\");",
+													"});",
+													"",
+													"pm.test(\"Response time is less than 500ms\", function () {",
+													"    pm.expect(pm.response.responseTime).to.be.below(500);",
+													"});",
+													"",
+													"var jsonData = pm.response.json();",
+													"",
+													"pm.collectionVariables.set(\"userId\", jsonData.id); // создаем переменную пользователя",
+													"",
+													"//pm.collectionVariables.set(\"timeStep\", replaceIn('{{$isoTimestamp}}'));",
+													"",
+													"pm.test(\"Check body data is Array\", function () {",
+													"    pm.expect(jsonData.data).to.be.an(\"Array\");",
+													"});",
+													"",
+													"pm.test(\"Check body id is String\", function () {",
+													"    pm.expect(jsonData.data[0].id).to.be.an(\"String\");",
+													"});",
+													"",
+													"pm.test(\"Check body message is String\", function () {",
+													"    pm.expect(jsonData.data[1].message).to.be.an(\"String\");",
+													"});",
+													"",
+													"pm.test(\"Check body (2 < message < 500)\", function () {",
+													"    pm.expect(jsonData.data[1].message).to.have.lengthOf.within(2, 500);",
+													"});",
+													"",
+													"pm.test(\"Check body owner is Object\", function () {",
+													"    pm.expect(jsonData.data[2].owner).to.be.an('Object');",
+													"});",
+													"",
+													"",
+													"pm.test(\"Check body owner userId is String\", function () {",
+													"    pm.expect(jsonData.data[2].owner.id).to.be.an('String');",
+													"});",
+													"",
+													"pm.test(\"Check body owner userTitle is valid gender - mr, ms, miss...\", function () {",
+													"    pm.expect(jsonData.data[2].owner.title).to.equal('mr', 'ms', 'mrs', 'miss', 'dr', null);",
+													"});",
+													"",
+													"pm.test(\"Check body owner userFirstName is String\", function () {",
+													"    pm.expect(jsonData.data[2].owner.firstName).to.be.an('String');",
+													"});",
+													"",
+													"pm.test(\"Check body owner userFirstName (2 < firstName < 50)\", function () {",
+													"    pm.expect(jsonData.data[2].owner.firstName).to.have.lengthOf.within(2, 50);",
+													"});",
+													"",
+													"pm.test(\"Check body owner userLastName is String\", function () {",
+													"    pm.expect(jsonData.data[2].owner.lastName).to.be.an('String');",
+													"});",
+													"",
+													"pm.test(\"Check body owner userLastName (2 < lastName < 50)\", function () {",
+													"    pm.expect(jsonData.data[2].owner.lastName).to.have.lengthOf.within(2, 50);",
+													"});",
+													"",
+													"pm.test(\"Check body owner userPicture is String (URL)\", function () {",
+													"    pm.expect(jsonData.data[2].owner.picture).to.include('http');",
+													"});",
+													"",
+													"pm.test(\"Check body post is String\", function () {",
+													"    pm.expect(jsonData.data[3].post).to.be.an(\"String\");",
+													"});",
+													"",
+													"pm.test(\"Check body publishDate is String\", function () {",
+													"    pm.expect(jsonData.data[4].publishDate).to.be.an(\"String\");",
+													"});",
+													"",
+													"// pm.collectionVariables.set(\"timeStamp\", pm.variables.replaceIn('{{$isoTimestamp}}'));",
+													"// pm.test(\"Check body publishDate is date\", function () {",
+													"//         pm.expect(pm.collectionVariables.get('timeStamp')).to.be.above(jsonData.data[0].publishDate);",
+													"// });",
+													"",
+													"pm.test(\"Check limit is Null\", function () {",
+													"    pm.expect(jsonData.limit).to.eql(null);",
+													"});",
+													"",
+													"pm.test(\"Check page is 0\", function () {",
+													"    pm.expect(jsonData.page).to.eql(0);",
+													"});",
+													"",
+													"pm.test(\"Check body total is number\", function () {",
+													"    pm.expect(jsonData.total).to.be.a('number')",
+													"});",
+													"",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{host}}/comment?limit",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"comment"
+											],
+											"query": [
+												{
+													"key": "page",
+													"value": "",
+													"disabled": true
+												},
+												{
+													"key": "limit",
+													"value": null
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "GetPostList (limit = 4) невалид",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 404\", function () {",
+													"    pm.response.to.have.status(404);",
+													"});",
+													"",
+													"pm.test(\"Status code is Not found\", function () {",
+													"    pm.response.to.have.status(\"Not Found\");",
+													"});",
+													"",
+													"pm.test(\"Response time is less than 500ms\", function () {",
+													"    pm.expect(pm.response.responseTime).to.be.below(500);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{host}}/comment?limit=4",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"comment"
+											],
+											"query": [
+												{
+													"key": "page",
+													"value": "",
+													"disabled": true
+												},
+												{
+													"key": "limit",
+													"value": "4"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "GetPostList (limit = 5)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200 OK\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Status code is OK\", function () {",
+													"    pm.response.to.have.status(\"OK\");",
+													"});",
+													"",
+													"pm.test(\"Response time is less than 500ms\", function () {",
+													"    pm.expect(pm.response.responseTime).to.be.below(500);",
+													"});",
+													"",
+													"var jsonData = pm.response.json();",
+													"",
+													"pm.collectionVariables.set(\"userId\", jsonData.id); // создаем переменную пользователя",
+													"",
+													"//pm.collectionVariables.set(\"timeStep\", replaceIn('{{$isoTimestamp}}'));",
+													"",
+													"pm.test(\"Check body data is Array\", function () {",
+													"    pm.expect(jsonData.data).to.be.an(\"Array\");",
+													"});",
+													"",
+													"pm.test(\"Check body id is String\", function () {",
+													"    pm.expect(jsonData.data[0].id).to.be.an(\"String\");",
+													"});",
+													"",
+													"pm.test(\"Check body message is String\", function () {",
+													"    pm.expect(jsonData.data[1].message).to.be.an(\"String\");",
+													"});",
+													"",
+													"pm.test(\"Check body (2 < message < 500)\", function () {",
+													"    pm.expect(jsonData.data[1].message).to.have.lengthOf.within(2, 500);",
+													"});",
+													"",
+													"pm.test(\"Check body owner is Object\", function () {",
+													"    pm.expect(jsonData.data[2].owner).to.be.an('Object');",
+													"});",
+													"",
+													"",
+													"pm.test(\"Check body owner userId is String\", function () {",
+													"    pm.expect(jsonData.data[2].owner.id).to.be.an('String');",
+													"});",
+													"",
+													"pm.test(\"Check body owner userTitle is valid gender - mr, ms, miss...\", function () {",
+													"    pm.expect(jsonData.data[2].owner.title).to.equal('mr', 'ms', 'mrs', 'miss', 'dr', null);",
+													"});",
+													"",
+													"pm.test(\"Check body owner userFirstName is String\", function () {",
+													"    pm.expect(jsonData.data[2].owner.firstName).to.be.an('String');",
+													"});",
+													"",
+													"pm.test(\"Check body owner userFirstName (2 < firstName < 50)\", function () {",
+													"    pm.expect(jsonData.data[2].owner.firstName).to.have.lengthOf.within(2, 50);",
+													"});",
+													"",
+													"pm.test(\"Check body owner userLastName is String\", function () {",
+													"    pm.expect(jsonData.data[2].owner.lastName).to.be.an('String');",
+													"});",
+													"",
+													"pm.test(\"Check body owner userLastName (2 < lastName < 50)\", function () {",
+													"    pm.expect(jsonData.data[2].owner.lastName).to.have.lengthOf.within(2, 50);",
+													"});",
+													"",
+													"pm.test(\"Check body owner userPicture is String (URL)\", function () {",
+													"    pm.expect(jsonData.data[2].owner.picture).to.include('http');",
+													"});",
+													"",
+													"pm.test(\"Check body post is String\", function () {",
+													"    pm.expect(jsonData.data[3].post).to.be.an(\"String\");",
+													"});",
+													"",
+													"pm.test(\"Check body publishDate is String\", function () {",
+													"    pm.expect(jsonData.data[4].publishDate).to.be.an(\"String\");",
+													"});",
+													"",
+													"// сравниваем дату с календарём",
+													"// pm.collectionVariables.set(\"timeStamp\", pm.variables.replaceIn('{{$isoTimestamp}}'));",
+													"// pm.test(\"Check body publishDate is date\", function () {",
+													"//         pm.expect(pm.collectionVariables.get('timeStamp')).to.be.above(jsonData.data[0].publishDate);",
+													"// });",
+													"",
+													"pm.test(\"Check limit is 5\", function () {",
+													"    pm.expect(jsonData.limit).to.eql(5);",
+													"});",
+													"",
+													"pm.test(\"Check page is 0\", function () {",
+													"    pm.expect(jsonData.page).to.eql(0);",
+													"});",
+													"",
+													"pm.test(\"Check body total is number\", function () {",
+													"    pm.expect(jsonData.total).to.be.a('number')",
+													"});",
+													"",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{host}}/comment?limit=5",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"comment"
+											],
+											"query": [
+												{
+													"key": "page",
+													"value": "",
+													"disabled": true
+												},
+												{
+													"key": "limit",
+													"value": "5"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "GetPostList (limit = 50)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200 OK\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Status code is OK\", function () {",
+													"    pm.response.to.have.status(\"OK\");",
+													"});",
+													"",
+													"pm.test(\"Response time is less than 500ms\", function () {",
+													"    pm.expect(pm.response.responseTime).to.be.below(500);",
+													"});",
+													"",
+													"var jsonData = pm.response.json();",
+													"",
+													"pm.collectionVariables.set(\"userId\", jsonData.id); // создаем переменную пользователя",
+													"",
+													"//pm.collectionVariables.set(\"timeStep\", replaceIn('{{$isoTimestamp}}'));",
+													"",
+													"pm.test(\"Check body data is Array\", function () {",
+													"    pm.expect(jsonData.data).to.be.an(\"Array\");",
+													"});",
+													"",
+													"pm.test(\"Check body id is String\", function () {",
+													"    pm.expect(jsonData.data[0].id).to.be.an(\"String\");",
+													"});",
+													"",
+													"pm.test(\"Check body message is String\", function () {",
+													"    pm.expect(jsonData.data[1].message).to.be.an(\"String\");",
+													"});",
+													"",
+													"pm.test(\"Check body (2 < message < 500)\", function () {",
+													"    pm.expect(jsonData.data[1].message).to.have.lengthOf.within(2, 500);",
+													"});",
+													"",
+													"pm.test(\"Check body owner is Object\", function () {",
+													"    pm.expect(jsonData.data[2].owner).to.be.an('Object');",
+													"});",
+													"",
+													"",
+													"pm.test(\"Check body owner userId is String\", function () {",
+													"    pm.expect(jsonData.data[2].owner.id).to.be.an('String');",
+													"});",
+													"",
+													"pm.test(\"Check body owner userTitle is valid gender - mr, ms, miss...\", function () {",
+													"    pm.expect(jsonData.data[2].owner.title).to.equal('mr', 'ms', 'mrs', 'miss', 'dr', null);",
+													"});",
+													"",
+													"pm.test(\"Check body owner userFirstName is String\", function () {",
+													"    pm.expect(jsonData.data[2].owner.firstName).to.be.an('String');",
+													"});",
+													"",
+													"pm.test(\"Check body owner userFirstName (2 < firstName < 50)\", function () {",
+													"    pm.expect(jsonData.data[2].owner.firstName).to.have.lengthOf.within(2, 50);",
+													"});",
+													"",
+													"pm.test(\"Check body owner userLastName is String\", function () {",
+													"    pm.expect(jsonData.data[2].owner.lastName).to.be.an('String');",
+													"});",
+													"",
+													"pm.test(\"Check body owner userLastName (2 < lastName < 50)\", function () {",
+													"    pm.expect(jsonData.data[2].owner.lastName).to.have.lengthOf.within(2, 50);",
+													"});",
+													"",
+													"pm.test(\"Check body owner userPicture is String (URL)\", function () {",
+													"    pm.expect(jsonData.data[2].owner.picture).to.include('http');",
+													"});",
+													"",
+													"pm.test(\"Check body post is String\", function () {",
+													"    pm.expect(jsonData.data[3].post).to.be.an(\"String\");",
+													"});",
+													"",
+													"pm.test(\"Check body publishDate is String\", function () {",
+													"    pm.expect(jsonData.data[4].publishDate).to.be.an(\"String\");",
+													"});",
+													"",
+													"// сравниваем дату с календарём",
+													"// pm.collectionVariables.set(\"timeStamp\", pm.variables.replaceIn('{{$isoTimestamp}}'));",
+													"// pm.test(\"Check body publishDate is date\", function () {",
+													"//         pm.expect(pm.collectionVariables.get('timeStamp')).to.be.above(jsonData.data[0].publishDate);",
+													"// });",
+													"",
+													"pm.test(\"Check limit is 50\", function () {",
+													"    pm.expect(jsonData.limit).to.eql(50);",
+													"});",
+													"",
+													"pm.test(\"Check page is 0\", function () {",
+													"    pm.expect(jsonData.page).to.eql(0);",
+													"});",
+													"",
+													"pm.test(\"Check body total is number\", function () {",
+													"    pm.expect(jsonData.total).to.be.a('number')",
+													"});",
+													"",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{host}}/comment?limit=50",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"comment"
+											],
+											"query": [
+												{
+													"key": "page",
+													"value": "",
+													"disabled": true
+												},
+												{
+													"key": "limit",
+													"value": "50"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "GetPostList (limit = 51) невалид",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 404\", function () {",
+													"    pm.response.to.have.status(404);",
+													"});",
+													"",
+													"pm.test(\"Status code is Not found\", function () {",
+													"    pm.response.to.have.status(\"Not Found\");",
+													"});",
+													"",
+													"pm.test(\"Response time is less than 500ms\", function () {",
+													"    pm.expect(pm.response.responseTime).to.be.below(500);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{host}}/comment?limit=51",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"comment"
+											],
+											"query": [
+												{
+													"key": "page",
+													"value": "",
+													"disabled": true
+												},
+												{
+													"key": "limit",
+													"value": "51"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "GetPostList (limit = Text) невалид",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 404\", function () {",
+													"    pm.response.to.have.status(404);",
+													"});",
+													"",
+													"pm.test(\"Status code is Not found\", function () {",
+													"    pm.response.to.have.status(\"Not Found\");",
+													"});",
+													"",
+													"pm.test(\"Response time is less than 500ms\", function () {",
+													"    pm.expect(pm.response.responseTime).to.be.below(500);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{host}}/comment?limit=Text",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"comment"
+											],
+											"query": [
+												{
+													"key": "page",
+													"value": "",
+													"disabled": true
+												},
+												{
+													"key": "limit",
+													"value": "Text"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Created",
+							"item": [
+								{
+									"name": "GetPostList (created = 0) невалид",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200 OK\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Status code is OK\", function () {",
+													"    pm.response.to.have.status(\"OK\");",
+													"});",
+													"",
+													"pm.test(\"Response time is less than 500ms\", function () {",
+													"    pm.expect(pm.response.responseTime).to.be.below(500);",
+													"});",
+													"",
+													"var jsonData = pm.response.json();",
+													"",
+													"pm.collectionVariables.set(\"userId\", jsonData.id); // создаем переменную пользователя",
+													"",
+													"//pm.collectionVariables.set(\"timeStep\", replaceIn('{{$isoTimestamp}}'));",
+													"",
+													"pm.test(\"Check body data is Array\", function () {",
+													"    pm.expect(jsonData.data).to.be.an(\"Array\");",
+													"});",
+													"",
+													"pm.test(\"Check body id is String\", function () {",
+													"    pm.expect(jsonData.data[0].id).to.be.an(\"String\");",
+													"});",
+													"",
+													"pm.test(\"Check body message is String\", function () {",
+													"    pm.expect(jsonData.data[1].message).to.be.an(\"String\");",
+													"});",
+													"",
+													"pm.test(\"Check body (2 < message < 500)\", function () {",
+													"    pm.expect(jsonData.data[1].message).to.have.lengthOf.within(2, 500);",
+													"});",
+													"",
+													"pm.test(\"Check body owner is Object\", function () {",
+													"    pm.expect(jsonData.data[2].owner).to.be.an('Object');",
+													"});",
+													"",
+													"",
+													"pm.test(\"Check body owner userId is String\", function () {",
+													"    pm.expect(jsonData.data[2].owner.id).to.be.an('String');",
+													"});",
+													"",
+													"pm.test(\"Check body owner userTitle is valid gender - mr, ms, miss...\", function () {",
+													"    pm.expect(jsonData.data[2].owner.title).to.equal('mr', 'ms', 'mrs', 'miss', 'dr', null);",
+													"});",
+													"",
+													"pm.test(\"Check body owner userFirstName is String\", function () {",
+													"    pm.expect(jsonData.data[2].owner.firstName).to.be.an('String');",
+													"});",
+													"",
+													"pm.test(\"Check body owner userFirstName (2 < firstName < 50)\", function () {",
+													"    pm.expect(jsonData.data[2].owner.firstName).to.have.lengthOf.within(2, 50);",
+													"});",
+													"",
+													"pm.test(\"Check body owner userLastName is String\", function () {",
+													"    pm.expect(jsonData.data[2].owner.lastName).to.be.an('String');",
+													"});",
+													"",
+													"pm.test(\"Check body owner userLastName (2 < lastName < 50)\", function () {",
+													"    pm.expect(jsonData.data[2].owner.lastName).to.have.lengthOf.within(2, 50);",
+													"});",
+													"",
+													"pm.test(\"Check body owner userPicture is String (URL)\", function () {",
+													"    pm.expect(jsonData.data[2].owner.picture).to.include('http');",
+													"});",
+													"",
+													"pm.test(\"Check body post is String\", function () {",
+													"    pm.expect(jsonData.data[3].post).to.be.an(\"String\");",
+													"});",
+													"",
+													"pm.test(\"Check body publishDate is String\", function () {",
+													"    pm.expect(jsonData.data[4].publishDate).to.be.an(\"String\");",
+													"});",
+													"",
+													"// pm.collectionVariables.set(\"timeStamp\", pm.variables.replaceIn('{{$isoTimestamp}}'));",
+													"// pm.test(\"Check body publishDate is date\", function () {",
+													"//         pm.expect(pm.collectionVariables.get('timeStamp')).to.be.above(jsonData.data[0].publishDate);",
+													"// });",
+													"",
+													"pm.test(\"Check limit is 20\", function () {",
+													"    pm.expect(jsonData.limit).to.eql(20);",
+													"});",
+													"",
+													"pm.test(\"Check page is 0\", function () {",
+													"    pm.expect(jsonData.page).to.eql(0);",
+													"});",
+													"",
+													"pm.test(\"Check body total is number\", function () {",
+													"    pm.expect(jsonData.total).to.be.a('number')",
+													"});",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{host}}/comment?created=0",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"comment"
+											],
+											"query": [
+												{
+													"key": "page",
+													"value": "",
+													"disabled": true
+												},
+												{
+													"key": "limit",
+													"value": "Text",
+													"disabled": true
+												},
+												{
+													"key": "created",
+													"value": "0"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "GetPostList (created = 1)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200 OK\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Status code is OK\", function () {",
+													"    pm.response.to.have.status(\"OK\");",
+													"});",
+													"",
+													"pm.test(\"Response time is less than 500ms\", function () {",
+													"    pm.expect(pm.response.responseTime).to.be.below(500);",
+													"});",
+													"",
+													"var jsonData = pm.response.json();",
+													"",
+													"pm.collectionVariables.set(\"userId\", jsonData.id); // создаем переменную пользователя",
+													"",
+													"//pm.collectionVariables.set(\"timeStep\", replaceIn('{{$isoTimestamp}}'));",
+													"",
+													"pm.test(\"Check body data is Array\", function () {",
+													"    pm.expect(jsonData.data).to.be.an(\"Array\");",
+													"});",
+													"",
+													"pm.test(\"Check body id is String\", function () {",
+													"    pm.expect(jsonData.data[0].id).to.be.an(\"String\");",
+													"});",
+													"",
+													"pm.test(\"Check body message is String\", function () {",
+													"    pm.expect(jsonData.data[1].message).to.be.an(\"String\");",
+													"});",
+													"",
+													"pm.test(\"Check body (2 < message < 500)\", function () {",
+													"    pm.expect(jsonData.data[1].message).to.have.lengthOf.within(2, 500);",
+													"});",
+													"",
+													"pm.test(\"Check body owner is Object\", function () {",
+													"    pm.expect(jsonData.data[2].owner).to.be.an('Object');",
+													"});",
+													"",
+													"",
+													"pm.test(\"Check body owner userId is String\", function () {",
+													"    pm.expect(jsonData.data[2].owner.id).to.be.an('String');",
+													"});",
+													"",
+													"pm.test(\"Check body owner userTitle is valid gender - mr, ms, miss...\", function () {",
+													"    pm.expect(jsonData.data[2].owner.title).to.equal('mr', 'ms', 'mrs', 'miss', 'dr', null);",
+													"});",
+													"",
+													"pm.test(\"Check body owner userFirstName is String\", function () {",
+													"    pm.expect(jsonData.data[2].owner.firstName).to.be.an('String');",
+													"});",
+													"",
+													"pm.test(\"Check body owner userFirstName (2 < firstName < 50)\", function () {",
+													"    pm.expect(jsonData.data[2].owner.firstName).to.have.lengthOf.within(2, 50);",
+													"});",
+													"",
+													"pm.test(\"Check body owner userLastName is String\", function () {",
+													"    pm.expect(jsonData.data[2].owner.lastName).to.be.an('String');",
+													"});",
+													"",
+													"pm.test(\"Check body owner userLastName (2 < lastName < 50)\", function () {",
+													"    pm.expect(jsonData.data[2].owner.lastName).to.have.lengthOf.within(2, 50);",
+													"});",
+													"",
+													"pm.test(\"Check body owner userPicture is String (URL)\", function () {",
+													"    pm.expect(jsonData.data[2].owner.picture).to.include('http');",
+													"});",
+													"",
+													"pm.test(\"Check body post is String\", function () {",
+													"    pm.expect(jsonData.data[3].post).to.be.an(\"String\");",
+													"});",
+													"",
+													"pm.test(\"Check body publishDate is String\", function () {",
+													"    pm.expect(jsonData.data[4].publishDate).to.be.an(\"String\");",
+													"});",
+													"",
+													"// pm.collectionVariables.set(\"timeStamp\", pm.variables.replaceIn('{{$isoTimestamp}}'));",
+													"// pm.test(\"Check body publishDate is date\", function () {",
+													"//         pm.expect(pm.collectionVariables.get('timeStamp')).to.be.above(jsonData.data[0].publishDate);",
+													"// });",
+													"",
+													"pm.test(\"Check limit is 20\", function () {",
+													"    pm.expect(jsonData.limit).to.eql(20);",
+													"});",
+													"",
+													"pm.test(\"Check page is 0\", function () {",
+													"    pm.expect(jsonData.page).to.eql(0);",
+													"});",
+													"",
+													"pm.test(\"Check body total is number\", function () {",
+													"    pm.expect(jsonData.total).to.be.a('number')",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{host}}/comment?created=1",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"comment"
+											],
+											"query": [
+												{
+													"key": "page",
+													"value": "",
+													"disabled": true
+												},
+												{
+													"key": "limit",
+													"value": "Text",
+													"disabled": true
+												},
+												{
+													"key": "created",
+													"value": "1"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "GetPostList (created = ) без параметра",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200 OK\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Status code is OK\", function () {",
+													"    pm.response.to.have.status(\"OK\");",
+													"});",
+													"",
+													"pm.test(\"Response time is less than 500ms\", function () {",
+													"    pm.expect(pm.response.responseTime).to.be.below(500);",
+													"});",
+													"",
+													"var jsonData = pm.response.json();",
+													"",
+													"pm.collectionVariables.set(\"userId\", jsonData.id); // создаем переменную пользователя",
+													"",
+													"//pm.collectionVariables.set(\"timeStep\", replaceIn('{{$isoTimestamp}}'));",
+													"",
+													"pm.test(\"Check body data is Array\", function () {",
+													"    pm.expect(jsonData.data).to.be.an(\"Array\");",
+													"});",
+													"",
+													"pm.test(\"Check body id is String\", function () {",
+													"    pm.expect(jsonData.data[0].id).to.be.an(\"String\");",
+													"});",
+													"",
+													"pm.test(\"Check body message is String\", function () {",
+													"    pm.expect(jsonData.data[1].message).to.be.an(\"String\");",
+													"});",
+													"",
+													"pm.test(\"Check body (2 < message < 500)\", function () {",
+													"    pm.expect(jsonData.data[1].message).to.have.lengthOf.within(2, 500);",
+													"});",
+													"",
+													"pm.test(\"Check body owner is Object\", function () {",
+													"    pm.expect(jsonData.data[2].owner).to.be.an('Object');",
+													"});",
+													"",
+													"",
+													"pm.test(\"Check body owner userId is String\", function () {",
+													"    pm.expect(jsonData.data[2].owner.id).to.be.an('String');",
+													"});",
+													"",
+													"pm.test(\"Check body owner userTitle is valid gender - mr, ms, miss...\", function () {",
+													"    pm.expect(jsonData.data[2].owner.title).to.equal('mr', 'ms', 'mrs', 'miss', 'dr', null);",
+													"});",
+													"",
+													"pm.test(\"Check body owner userFirstName is String\", function () {",
+													"    pm.expect(jsonData.data[2].owner.firstName).to.be.an('String');",
+													"});",
+													"",
+													"pm.test(\"Check body owner userFirstName (2 < firstName < 50)\", function () {",
+													"    pm.expect(jsonData.data[2].owner.firstName).to.have.lengthOf.within(2, 50);",
+													"});",
+													"",
+													"pm.test(\"Check body owner userLastName is String\", function () {",
+													"    pm.expect(jsonData.data[2].owner.lastName).to.be.an('String');",
+													"});",
+													"",
+													"pm.test(\"Check body owner userLastName (2 < lastName < 50)\", function () {",
+													"    pm.expect(jsonData.data[2].owner.lastName).to.have.lengthOf.within(2, 50);",
+													"});",
+													"",
+													"pm.test(\"Check body owner userPicture is String (URL)\", function () {",
+													"    pm.expect(jsonData.data[2].owner.picture).to.include('http');",
+													"});",
+													"",
+													"pm.test(\"Check body post is String\", function () {",
+													"    pm.expect(jsonData.data[3].post).to.be.an(\"String\");",
+													"});",
+													"",
+													"pm.test(\"Check body publishDate is String\", function () {",
+													"    pm.expect(jsonData.data[4].publishDate).to.be.an(\"String\");",
+													"});",
+													"",
+													"// pm.collectionVariables.set(\"timeStamp\", pm.variables.replaceIn('{{$isoTimestamp}}'));",
+													"// pm.test(\"Check body publishDate is date\", function () {",
+													"//         pm.expect(pm.collectionVariables.get('timeStamp')).to.be.above(jsonData.data[0].publishDate);",
+													"// });",
+													"",
+													"pm.test(\"Check limit is 20\", function () {",
+													"    pm.expect(jsonData.limit).to.eql(20);",
+													"});",
+													"",
+													"pm.test(\"Check page is 0\", function () {",
+													"    pm.expect(jsonData.page).to.eql(0);",
+													"});",
+													"",
+													"pm.test(\"Check body total is number\", function () {",
+													"    pm.expect(jsonData.total).to.be.a('number')",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{host}}/comment?created=",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"comment"
+											],
+											"query": [
+												{
+													"key": "page",
+													"value": "",
+													"disabled": true
+												},
+												{
+													"key": "limit",
+													"value": "Text",
+													"disabled": true
+												},
+												{
+													"key": "created",
+													"value": ""
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "GetPostList (created = 2) невалид",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 404\", function () {",
+													"    pm.response.to.have.status(404);",
+													"});",
+													"",
+													"pm.test(\"Status code is Not found\", function () {",
+													"    pm.response.to.have.status(\"Not Found\");",
+													"});",
+													"",
+													"pm.test(\"Response time is less than 500ms\", function () {",
+													"    pm.expect(pm.response.responseTime).to.be.below(500);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{host}}/comment?created=2",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"comment"
+											],
+											"query": [
+												{
+													"key": "page",
+													"value": "",
+													"disabled": true
+												},
+												{
+													"key": "limit",
+													"value": "Text",
+													"disabled": true
+												},
+												{
+													"key": "created",
+													"value": "2"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "GetPostList (created = Text) невалид",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 404\", function () {",
+													"    pm.response.to.have.status(404);",
+													"});",
+													"",
+													"pm.test(\"Status code is Not found\", function () {",
+													"    pm.response.to.have.status(\"Not Found\");",
+													"});",
+													"",
+													"pm.test(\"Response time is less than 500ms\", function () {",
+													"    pm.expect(pm.response.responseTime).to.be.below(500);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{host}}/comment?created=Text",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"comment"
+											],
+											"query": [
+												{
+													"key": "page",
+													"value": "",
+													"disabled": true
+												},
+												{
+													"key": "limit",
+													"value": "Text",
+													"disabled": true
+												},
+												{
+													"key": "created",
+													"value": "Text"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "CreateComment",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is error\", function () {\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 500ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+							"});\r",
+							"\r",
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"pm.environment.set(\"commentId\", jsonData.id); // создаем переменную в окружении\r",
+							"\r",
+							"//id\r",
+							"pm.test(\"Check body id is string\", function () {\r",
+							"    pm.expect(jsonData.id).to.be.a('string')\r",
+							"});\r",
+							"\r",
+							"//message\r",
+							"pm.test(\"Check body message is string\", function () {\r",
+							"    pm.expect(jsonData.message).to.be.a('string')\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check body message true\", function () {\r",
+							"    pm.expect(jsonData.message).to.eql(\"string(length: 2-500)\")\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check body (2 < message < 500)\", function () {\r",
+							"    pm.expect(jsonData.message).to.have.lengthOf.within(2, 500);\r",
+							"});\r",
+							"\r",
+							"//owner\r",
+							"pm.test(\"Check body owner is string\", function () {\r",
+							"    pm.expect(jsonData.owner).to.be.a('string')\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check body owner true\", function () {\r",
+							"    pm.expect(jsonData.owner).to.eql(pm.environment.get(\"userId\"))\r",
+							"});\r",
+							"\r",
+							"//post\r",
+							"pm.test(\"Check body post is string\", function () {\r",
+							"    pm.expect(jsonData.post).to.be.a('string')\r",
+							"});\r",
+							"\r",
+							"//pm.collectionVariables.set(\"postId\", pm.environment.get(\"PostId\"));\r",
+							"\r",
+							"pm.test(\"Check body post true\", function () {\r",
+							"    pm.expect(jsonData.post).to.eql(pm.environment.get(\"PostId\"))\r",
+							"});\r",
+							"\r",
+							"//console.log(pm.environment.get(\"PostId\"))\r",
+							"//pm.collectionVariables.get(\"variable_key\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n\"message\": \"string(length: 2-500)\",\r\n\"owner\": \"{{userId}}\",\r\n\"post\": \"{{PostId}}\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/comment/create",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"comment",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetCommentListByPost",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 500ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);",
+							"});",
+							"",
+							"pm.test(\"Status code name is OK\", function () {",
+							"    pm.response.to.have.status(\"OK\");",
+							"});",
+							"",
+							"// переменная вынесенная из тестов за скобки",
+							"var jsonData = pm.response.json();",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/post/{{PostId}}/comment",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"post",
+						"{{PostId}}",
+						"comment"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "value",
+				"value": "{{app-id}}",
+				"type": "string"
+			},
+			{
+				"key": "key",
+				"value": "app-id",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "userId",
+			"value": "65523c712b9fad5936c6b071",
+			"type": "string"
+		},
+		{
+			"value": "",
+			"type": "string",
+			"disabled": true
+		},
+		{
+			"key": "timeStamp",
+			"value": "",
+			"disabled": true
+		},
+		{
+			"key": "timeStamp",
+			"value": ""
+		},
+		{
+			"key": "postId",
+			"value": ""
+		}
+	]
+}
